@@ -8,7 +8,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MovieApiWrapper {
-    private ApiService apiService;
+    private final ApiService apiService;
 
     public MovieApiWrapper(ApiService api) { apiService = api; }
 

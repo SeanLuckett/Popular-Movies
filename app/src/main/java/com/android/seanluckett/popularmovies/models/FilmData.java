@@ -2,11 +2,11 @@ package com.android.seanluckett.popularmovies.models;
 
 public class FilmData {
 
-    private String mTitle;
-    private String mPosterImagePath;
-    private String mPlot;
-    private Double mUserRating;
-    private String mReleaseDate;
+    private final String mTitle;
+    private final String mPosterImagePath;
+    private final String mPlot;
+    private final Double mUserRating;
+    private final String mReleaseDate;
 
     public FilmData(
         String title,

@@ -11,7 +11,7 @@ import java.io.Reader;
 
 
 public class FakeMovieDbService extends ApiService {
-    Context caller;
+    private final Context caller;
 
     public FakeMovieDbService(Context activity) {
         caller = activity;

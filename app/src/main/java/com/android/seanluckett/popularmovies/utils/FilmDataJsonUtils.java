@@ -17,7 +17,7 @@ public class FilmDataJsonUtils {
     private static final String AVERAGE_VOTE_KEY = "vote_average";
     private static final String RELEASE_DATE_KEY = "release_date";
 
-    private static ArrayList<FilmData> films = new ArrayList<>();
+    private static final ArrayList<FilmData> films = new ArrayList<>();
 
     // TODO errors here
 

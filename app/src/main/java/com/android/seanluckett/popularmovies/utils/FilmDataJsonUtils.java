@@ -34,7 +34,6 @@ public class FilmDataJsonUtils {
             }
 
         } catch (JSONException e) {
-            Log.i("PARSED", e.toString());
             e.printStackTrace();
         }
 

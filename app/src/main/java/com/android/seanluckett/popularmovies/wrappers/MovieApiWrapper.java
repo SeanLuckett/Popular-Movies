@@ -4,6 +4,7 @@ import com.android.seanluckett.popularmovies.models.FilmData;
 import com.android.seanluckett.popularmovies.utils.ApiService;
 import com.android.seanluckett.popularmovies.utils.FilmDataJsonUtils;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MovieApiWrapper {
@@ -13,10 +14,15 @@ public class MovieApiWrapper {
 
     public ArrayList<FilmData> getMostPopular() {
         String response = apiService.getMostPopular();
-        ArrayList<FilmData> movies = new ArrayList<>(FilmDataJsonUtils.parseMovieList(response));
-        return movies;
+        return parseList(response);
     }
 
-    // TODO implement
-//    public ArrayList<FilmData> getTopRate() {}
+    public ArrayList<FilmData> getTopRated() {
+        String response = apiService.getTopRated();
+        return parseList(response);
+    }
+
+    private ArrayList<FilmData> parseList(String json) {
+        return new ArrayList<>(FilmDataJsonUtils.parseMovieList(json));
+    }
 }

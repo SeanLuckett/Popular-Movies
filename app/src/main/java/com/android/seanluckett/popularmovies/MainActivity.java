@@ -1,5 +1,7 @@
 package com.android.seanluckett.popularmovies;
 
+import android.content.Context;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView moviesRecyclerView;
+    private MoviesAdapter moviesAdapter = new MoviesAdapter();
 
     // TODO Move this api key code to api interacter
     private static final String MOVIE_API_KEY = BuildConfig.MOVIE_API_KEY;
@@ -33,9 +36,30 @@ public class MainActivity extends AppCompatActivity {
 
         moviesRecyclerView.setLayoutManager(layoutManager);
         moviesRecyclerView.setHasFixedSize(true);
-        moviesRecyclerView.setAdapter(new MoviesAdapter());
+        moviesRecyclerView.setAdapter(moviesAdapter);
 
-        MovieApiWrapper moviesWrapper = new MovieApiWrapper(new FakeMovieDbService(this));
-        ArrayList<FilmData> popularMovies = moviesWrapper.getMostPopular();
+        loadMovieData();
+    }
+
+    public void loadMovieData() {
+        new FetchPopularMoviesTask().execute(this);
+    }
+
+    public class FetchPopularMoviesTask extends AsyncTask<Context, Void, ArrayList<FilmData>> {
+
+        @Override
+        protected ArrayList<FilmData> doInBackground(Context... contexts) {
+            MovieApiWrapper moviesWrapper = new MovieApiWrapper(new FakeMovieDbService(contexts[0]));
+            return moviesWrapper.getMostPopular();
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<FilmData> filmData) {
+            if (filmData != null || !filmData.isEmpty()) {
+                moviesAdapter.setMovieListData(filmData);
+            } else {
+                super.onPostExecute(filmData);
+            }
+        }
     }
 }

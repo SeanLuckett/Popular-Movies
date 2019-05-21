@@ -1,13 +1,12 @@
 package com.android.seanluckett.popularmovies.utils;
 
-import android.util.Log;
-
 import com.android.seanluckett.popularmovies.models.FilmData;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URL;
 import java.util.ArrayList;
 
 public class FilmDataJsonUtils {
@@ -18,8 +17,6 @@ public class FilmDataJsonUtils {
     private static final String RELEASE_DATE_KEY = "release_date";
 
     private static final ArrayList<FilmData> films = new ArrayList<>();
-
-    // TODO errors here
 
     public static ArrayList<FilmData> parseMovieList(String json) {
         try {
@@ -42,7 +39,7 @@ public class FilmDataJsonUtils {
 
     private static FilmData parseMovieJson(JSONObject filmJson) throws JSONException {
         String title = filmJson.getString(TITLE_KEY);
-        String posterPath = filmJson.getString(POSTER_KEY);
+        URL posterPath = BuildFullPosterUrl.execute(filmJson.getString(POSTER_KEY));
         String plotSummary = filmJson.getString(PLOT_KEY);
         Double userAverage = filmJson.getDouble(AVERAGE_VOTE_KEY);
         String releaseDate = filmJson.getString(RELEASE_DATE_KEY);

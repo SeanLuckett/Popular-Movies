@@ -8,6 +8,7 @@ import android.os.Parcelable;
 // https://github.com/johncarl81/parceler
 
 public class FilmData implements Parcelable {
+    public static final String TAG = FilmData.class.getSimpleName();
 
     private final String mTitle;
     private final Uri mPosterImagePath;

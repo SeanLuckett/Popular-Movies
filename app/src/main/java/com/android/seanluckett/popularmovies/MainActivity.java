@@ -29,15 +29,17 @@ public class MainActivity extends AppCompatActivity {
 
         GridLayoutManager layoutManager = new GridLayoutManager(
             MainActivity.this,
-            GridLayoutManager.DEFAULT_SPAN_COUNT,
+            2,
             GridLayoutManager.VERTICAL,
             false
         );
+
 
         moviesRecyclerView.setLayoutManager(layoutManager);
         moviesRecyclerView.setHasFixedSize(true);
         moviesRecyclerView.setAdapter(moviesAdapter);
 
+        // TODO add a progress bar and corresponding async task methods
         loadMovieData();
     }
 
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public class FetchPopularMoviesTask extends AsyncTask<Context, Void, ArrayList<FilmData>> {
+        private final String TAG = FetchPopularMoviesTask.class.getSimpleName();
 
         @Override
         protected ArrayList<FilmData> doInBackground(Context... contexts) {

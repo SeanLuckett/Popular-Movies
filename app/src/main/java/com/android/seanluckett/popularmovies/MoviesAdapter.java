@@ -3,12 +3,13 @@ package com.android.seanluckett.popularmovies;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.android.seanluckett.popularmovies.models.FilmData;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,10 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdap
     @Override
     public void onBindViewHolder(@NonNull MoviesAdapterViewHolder moviesAdapterViewHolder, int i) {
         FilmData movie = movieListData.get(i);
-        // TODO bind movie poster to view (picasso)
+        // TODO add placeholder and possibly error images
+        Picasso.get()
+            .load(movie.getPosterImagePath())
+            .into(moviesAdapterViewHolder.moviePosterImageView);
     }
 
     @Override
@@ -42,9 +46,11 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdap
     }
 
     class MoviesAdapterViewHolder extends RecyclerView.ViewHolder {
+        public final ImageView moviePosterImageView;
 
         MoviesAdapterViewHolder(View view) {
             super(view);
+            moviePosterImageView = view.findViewById(R.id.movie_poster_image);
         }
     }
 }

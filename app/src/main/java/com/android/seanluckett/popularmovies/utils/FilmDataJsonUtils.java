@@ -1,5 +1,7 @@
 package com.android.seanluckett.popularmovies.utils;
 
+import android.net.Uri;
+
 import com.android.seanluckett.popularmovies.models.FilmData;
 
 import org.json.JSONArray;
@@ -39,7 +41,7 @@ public class FilmDataJsonUtils {
 
     private static FilmData parseMovieJson(JSONObject filmJson) throws JSONException {
         String title = filmJson.getString(TITLE_KEY);
-        URL posterPath = BuildFullPosterUrl.execute(filmJson.getString(POSTER_KEY));
+        Uri posterPath = BuildFullPosterUri.execute(filmJson.getString(POSTER_KEY));
         String plotSummary = filmJson.getString(PLOT_KEY);
         Double userAverage = filmJson.getDouble(AVERAGE_VOTE_KEY);
         String releaseDate = filmJson.getString(RELEASE_DATE_KEY);

@@ -1,18 +1,20 @@
 package com.android.seanluckett.popularmovies.models;
 
+import android.net.Uri;
+
 import java.net.URL;
 
 public class FilmData {
 
     private final String mTitle;
-    private final URL mPosterImagePath;
+    private final Uri mPosterImagePath;
     private final String mPlot;
     private final Double mUserRating;
     private final String mReleaseDate;
 
     public FilmData(
         String title,
-        URL posterImagePath,
+        Uri posterImagePath,
         String plot,
         Double userRating,
         String releaseDate
@@ -28,7 +30,7 @@ public class FilmData {
         return mTitle;
     }
 
-    public URL getPosterImagePath() {
+    public Uri getPosterImagePath() {
         return mPosterImagePath;
     }
 

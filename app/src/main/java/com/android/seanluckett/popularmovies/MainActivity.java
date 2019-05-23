@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements MoviesAdapter.MoviesAdapterOnClickHandler {
     private static final String MOST_POPULAR_TITLE = "Popular Movies";
-    public static final String TOP_RATED_TITLE = "Top Rated Movies";
+    private static final String TOP_RATED_TITLE = "Top Rated Movies";
 
     private RecyclerView moviesRecyclerView;
     private MoviesAdapter moviesAdapter;
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
 
     }
 
-    public void loadMovieData() {
+    private void loadMovieData() {
         new FetchPopularMoviesTask().execute();
     }
 
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
         errorMessageView.setVisibility(View.VISIBLE);
     }
 
-    public class FetchTopRatedMoviesTask extends AsyncTask<Void, Void, ArrayList<FilmData>> {
+    class FetchTopRatedMoviesTask extends AsyncTask<Void, Void, ArrayList<FilmData>> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -120,8 +120,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
         @Override
         protected ArrayList<FilmData> doInBackground(Void... voids) {
             MovieApiWrapper moviesWrapper = new MovieApiWrapper(new MovieDbService());
-            ArrayList<FilmData> topRated = moviesWrapper.getTopRated();
-            return topRated;
+            return moviesWrapper.getTopRated();
         }
 
         @Override
@@ -137,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
         }
     }
 
-    public class FetchPopularMoviesTask extends AsyncTask<Void, Void, ArrayList<FilmData>> {
+    class FetchPopularMoviesTask extends AsyncTask<Void, Void, ArrayList<FilmData>> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -148,8 +147,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
         @Override
         protected ArrayList<FilmData> doInBackground(Void... voids) {
             MovieApiWrapper moviesWrapper = new MovieApiWrapper(new MovieDbService());
-            ArrayList<FilmData> mostPopular = moviesWrapper.getMostPopular();
-            return mostPopular;
+            return moviesWrapper.getMostPopular();
         }
 
         @Override

@@ -19,7 +19,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdap
     private final MoviesAdapterOnClickHandler clickHandler;
 
     public interface MoviesAdapterOnClickHandler {
-        public void onMovieClicked(FilmData movie);
+        void onMovieClicked(FilmData movie);
     }
 
     public MoviesAdapter(MoviesAdapterOnClickHandler handler) { clickHandler = handler; }
@@ -52,7 +52,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdap
     }
 
     public class MoviesAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public final ImageView moviePosterImageView;
+        final ImageView moviePosterImageView;
 
         MoviesAdapterViewHolder(View view) {
             super(view);

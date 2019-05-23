@@ -2,6 +2,7 @@ package com.android.seanluckett.popularmovies.wrappers;
 
 import android.widget.ImageView;
 
+import com.android.seanluckett.popularmovies.R;
 import com.android.seanluckett.popularmovies.models.FilmData;
 import com.android.seanluckett.popularmovies.utils.ApiService;
 import com.android.seanluckett.popularmovies.utils.FilmDataJsonUtils;
@@ -13,9 +14,10 @@ public class MovieApiWrapper {
     private final ApiService apiService;
 
     public static void loadPosterIntoView(ImageView view, FilmData movie) {
-        // TODO add placeholder and possibly error images
         Picasso.get()
             .load(movie.getPosterImagePath())
+            .placeholder(R.drawable.poster_placeholder)
+            .error(R.drawable.ic_error_outline_accent_24dp)
             .into(view);
     }
 

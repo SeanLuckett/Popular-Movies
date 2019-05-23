@@ -4,4 +4,5 @@
     <string name="out_of_ten">/10</string>
     <string name="sort_most_popular">Most popular</string>
     <string name="sort_top_rated">Top rated</string>
+    <string name="error_message_text">An error occured loading movie data. Please click a sort option to try again.</string>
 </resources>

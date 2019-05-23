@@ -9,6 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.android.seanluckett.popularmovies.models.FilmData;
 import com.android.seanluckett.popularmovies.utils.MovieDbService;
@@ -22,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
 
     private RecyclerView moviesRecyclerView;
     private MoviesAdapter moviesAdapter;
+    private ProgressBar loadingIndicator;
+    private TextView errorMessageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
         setContentView(R.layout.activity_movies);
 
         moviesRecyclerView = findViewById(R.id.recyclerview_movies);
+        errorMessageView = findViewById(R.id.error_message_display);
 
         GridLayoutManager layoutManager = new GridLayoutManager(
             MainActivity.this,
@@ -44,7 +50,8 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
         moviesAdapter = new MoviesAdapter(this);
         moviesRecyclerView.setAdapter(moviesAdapter);
 
-        // TODO add a progress bar and corresponding async task methods
+        loadingIndicator = findViewById(R.id.loading_indicator);
+
         loadMovieData();
     }
 
@@ -92,7 +99,24 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
         new FetchTopRatedMoviesTask().execute();
     }
 
+    private void showMoviesView() {
+        errorMessageView.setVisibility(View.INVISIBLE);
+        moviesRecyclerView.setVisibility(View.VISIBLE);
+    }
+
+    private void showErrorMessage() {
+        moviesRecyclerView.setVisibility(View.INVISIBLE);
+        errorMessageView.setVisibility(View.VISIBLE);
+    }
+
     public class FetchTopRatedMoviesTask extends AsyncTask<Void, Void, ArrayList<FilmData>> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            moviesRecyclerView.setVisibility(View.INVISIBLE);
+            loadingIndicator.setVisibility(View.VISIBLE);
+        }
+
         @Override
         protected ArrayList<FilmData> doInBackground(Void... voids) {
             MovieApiWrapper moviesWrapper = new MovieApiWrapper(new MovieDbService());
@@ -102,15 +126,25 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
 
         @Override
         protected void onPostExecute(ArrayList<FilmData> filmData) {
-            if (filmData != null || !filmData.isEmpty()) {
+            loadingIndicator.setVisibility(View.INVISIBLE);
+
+            if (filmData != null && !filmData.isEmpty()) {
+                showMoviesView();
                 moviesAdapter.setMovieListData(filmData);
             } else {
-                super.onPostExecute(filmData);
+                showErrorMessage();
             }
         }
     }
 
     public class FetchPopularMoviesTask extends AsyncTask<Void, Void, ArrayList<FilmData>> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            moviesRecyclerView.setVisibility(View.INVISIBLE);
+            loadingIndicator.setVisibility(View.VISIBLE);
+        }
+
         @Override
         protected ArrayList<FilmData> doInBackground(Void... voids) {
             MovieApiWrapper moviesWrapper = new MovieApiWrapper(new MovieDbService());
@@ -120,10 +154,13 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
 
         @Override
         protected void onPostExecute(ArrayList<FilmData> filmData) {
-            if (filmData != null || !filmData.isEmpty()) {
+            loadingIndicator.setVisibility(View.INVISIBLE);
+
+            if (filmData != null && !filmData.isEmpty()) {
+                showMoviesView();
                 moviesAdapter.setMovieListData(filmData);
             } else {
-                super.onPostExecute(filmData);
+                showErrorMessage();
             }
         }
     }

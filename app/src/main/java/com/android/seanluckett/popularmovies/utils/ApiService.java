@@ -1,7 +1,7 @@
 package com.android.seanluckett.popularmovies.utils;
 
-public abstract class ApiService {
-    public abstract String getMostPopular();
+public interface ApiService {
+    String getMostPopular();
 
-    public abstract String getTopRated();
+    String getTopRated();
 }

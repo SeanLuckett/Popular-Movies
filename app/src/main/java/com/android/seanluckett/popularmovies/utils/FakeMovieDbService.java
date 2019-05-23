@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 
 
-public class FakeMovieDbService extends ApiService {
+public class FakeMovieDbService implements ApiService {
     private final Context caller;
 
     public FakeMovieDbService(Context activity) {

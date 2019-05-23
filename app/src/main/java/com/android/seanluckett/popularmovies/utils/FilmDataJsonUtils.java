@@ -19,10 +19,10 @@ public class FilmDataJsonUtils {
     private static final String AVERAGE_VOTE_KEY = "vote_average";
     private static final String RELEASE_DATE_KEY = "release_date";
 
-    private static final ArrayList<FilmData> films = new ArrayList<>();
 
     public static ArrayList<FilmData> parseMovieList(String json) {
-        Log.i(MovieDbService.TAG, "Passed json looks like: \n" + json);
+        ArrayList<FilmData> films = new ArrayList<>();
+
         try {
             JSONObject movieJson = new JSONObject(json);
             JSONArray movies = movieJson.getJSONArray("results");

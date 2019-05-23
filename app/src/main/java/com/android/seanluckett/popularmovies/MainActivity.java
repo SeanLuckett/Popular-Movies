@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
     }
 
     public void loadMovieData() {
-        new FetchPopularMoviesTask().execute(MainActivity.this);
+        new FetchPopularMoviesTask().execute();
     }
 
     private void sortMoviesMostPopular() {
@@ -86,14 +87,16 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
     }
 
     private void sortMoviesTopRated() {
-        new FetchTopRatedMoviesTask().execute(MainActivity.this);
+        new FetchTopRatedMoviesTask().execute();
     }
 
-    public class FetchTopRatedMoviesTask extends AsyncTask<Context, Void, ArrayList<FilmData>> {
+    public class FetchTopRatedMoviesTask extends AsyncTask<Void, Void, ArrayList<FilmData>> {
         @Override
-        protected ArrayList<FilmData> doInBackground(Context... contexts) {
+        protected ArrayList<FilmData> doInBackground(Void... voids) {
             MovieApiWrapper moviesWrapper = new MovieApiWrapper(new MovieDbService());
-            return moviesWrapper.getTopRated();
+            ArrayList<FilmData> topRated = moviesWrapper.getTopRated();
+            Log.i(MovieDbService.TAG, "In top rated task, the response list is size: " + topRated.size());
+            return topRated;
         }
 
         @Override
@@ -106,13 +109,15 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
         }
     }
 
-    public class FetchPopularMoviesTask extends AsyncTask<Context, Void, ArrayList<FilmData>> {
+    public class FetchPopularMoviesTask extends AsyncTask<Void, Void, ArrayList<FilmData>> {
         private final String TAG = FetchPopularMoviesTask.class.getSimpleName();
 
         @Override
-        protected ArrayList<FilmData> doInBackground(Context... contexts) {
+        protected ArrayList<FilmData> doInBackground(Void... voids) {
             MovieApiWrapper moviesWrapper = new MovieApiWrapper(new MovieDbService());
-            return moviesWrapper.getMostPopular();
+            ArrayList<FilmData> mostPopular = moviesWrapper.getMostPopular();
+            Log.i(MovieDbService.TAG, "In most popular task, the response list is size: " + mostPopular.size());
+            return mostPopular;
         }
 
         @Override

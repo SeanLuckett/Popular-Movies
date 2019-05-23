@@ -4,7 +4,6 @@ import com.android.seanluckett.popularmovies.models.FilmData;
 import com.android.seanluckett.popularmovies.utils.ApiService;
 import com.android.seanluckett.popularmovies.utils.FilmDataJsonUtils;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MovieApiWrapper {

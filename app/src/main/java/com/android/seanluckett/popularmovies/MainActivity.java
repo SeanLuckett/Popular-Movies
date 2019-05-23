@@ -7,7 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.android.seanluckett.popularmovies.models.FilmData;
 import com.android.seanluckett.popularmovies.utils.FakeMovieDbService;
@@ -47,16 +49,63 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
         loadMovieData();
     }
 
-    public void loadMovieData() {
-        new FetchPopularMoviesTask().execute(this);
-    }
-
     @Override
     public void onMovieClicked(FilmData movie) {
         Intent startMovieDetailIntent = new Intent(this, MovieDetailActivity.class);
 
         startMovieDetailIntent.putExtra(FilmData.TAG, movie);
         startActivity(startMovieDetailIntent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.movie_sort_filters, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.sort_most_popular:
+                sortMoviesMostPopular();
+                return true;
+            case R.id.sort_top_rated:
+                sortMoviesTopRated();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    public void loadMovieData() {
+        new FetchPopularMoviesTask().execute(MainActivity.this);
+    }
+
+    private void sortMoviesMostPopular() {
+        loadMovieData();
+    }
+
+    private void sortMoviesTopRated() {
+        new FetchTopRatedMoviesTask().execute(MainActivity.this);
+    }
+
+    public class FetchTopRatedMoviesTask extends AsyncTask<Context, Void, ArrayList<FilmData>> {
+        @Override
+        protected ArrayList<FilmData> doInBackground(Context... contexts) {
+            MovieApiWrapper moviesWrapper = new MovieApiWrapper(new FakeMovieDbService(contexts[0]));
+            return moviesWrapper.getTopRated();
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<FilmData> filmData) {
+            if (filmData != null || !filmData.isEmpty()) {
+                moviesAdapter.setMovieListData(filmData);
+            } else {
+                super.onPostExecute(filmData);
+            }
+        }
     }
 
     public class FetchPopularMoviesTask extends AsyncTask<Context, Void, ArrayList<FilmData>> {

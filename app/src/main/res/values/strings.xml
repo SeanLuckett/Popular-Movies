@@ -2,4 +2,6 @@
     <string name="app_name">Popular Movies</string>
     <string name="movie_poster_image">Movie poster image</string>
     <string name="out_of_ten">/10</string>
+    <string name="sort_most_popular">Most popular</string>
+    <string name="sort_top_rated">Top rated</string>
 </resources>

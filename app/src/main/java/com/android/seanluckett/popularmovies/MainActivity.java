@@ -1,25 +1,25 @@
 package com.android.seanluckett.popularmovies;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.android.seanluckett.popularmovies.models.FilmData;
-import com.android.seanluckett.popularmovies.utils.FakeMovieDbService;
 import com.android.seanluckett.popularmovies.utils.MovieDbService;
 import com.android.seanluckett.popularmovies.wrappers.MovieApiWrapper;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements MoviesAdapter.MoviesAdapterOnClickHandler {
+    private static final String MOST_POPULAR_TITLE = "Popular Movies";
+    public static final String TOP_RATED_TITLE = "Top Rated Movies";
+
     private RecyclerView moviesRecyclerView;
     private MoviesAdapter moviesAdapter;
 
@@ -68,9 +68,11 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
         switch (item.getItemId()) {
             case R.id.sort_most_popular:
                 sortMoviesMostPopular();
+                getSupportActionBar().setTitle(MOST_POPULAR_TITLE);
                 return true;
             case R.id.sort_top_rated:
                 sortMoviesTopRated();
+                getSupportActionBar().setTitle(TOP_RATED_TITLE);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -95,7 +97,6 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
         protected ArrayList<FilmData> doInBackground(Void... voids) {
             MovieApiWrapper moviesWrapper = new MovieApiWrapper(new MovieDbService());
             ArrayList<FilmData> topRated = moviesWrapper.getTopRated();
-            Log.i(MovieDbService.TAG, "In top rated task, the response list is size: " + topRated.size());
             return topRated;
         }
 
@@ -110,13 +111,10 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
     }
 
     public class FetchPopularMoviesTask extends AsyncTask<Void, Void, ArrayList<FilmData>> {
-        private final String TAG = FetchPopularMoviesTask.class.getSimpleName();
-
         @Override
         protected ArrayList<FilmData> doInBackground(Void... voids) {
             MovieApiWrapper moviesWrapper = new MovieApiWrapper(new MovieDbService());
             ArrayList<FilmData> mostPopular = moviesWrapper.getMostPopular();
-            Log.i(MovieDbService.TAG, "In most popular task, the response list is size: " + mostPopular.size());
             return mostPopular;
         }
 

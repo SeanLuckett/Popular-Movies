@@ -13,6 +13,7 @@ import android.view.MenuItem;
 
 import com.android.seanluckett.popularmovies.models.FilmData;
 import com.android.seanluckett.popularmovies.utils.FakeMovieDbService;
+import com.android.seanluckett.popularmovies.utils.MovieDbService;
 import com.android.seanluckett.popularmovies.wrappers.MovieApiWrapper;
 
 import java.util.ArrayList;
@@ -20,9 +21,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements MoviesAdapter.MoviesAdapterOnClickHandler {
     private RecyclerView moviesRecyclerView;
     private MoviesAdapter moviesAdapter;
-
-    // TODO Move this api key code to api interacter
-    private static final String MOVIE_API_KEY = BuildConfig.MOVIE_API_KEY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
     public class FetchTopRatedMoviesTask extends AsyncTask<Context, Void, ArrayList<FilmData>> {
         @Override
         protected ArrayList<FilmData> doInBackground(Context... contexts) {
-            MovieApiWrapper moviesWrapper = new MovieApiWrapper(new FakeMovieDbService(contexts[0]));
+            MovieApiWrapper moviesWrapper = new MovieApiWrapper(new MovieDbService());
             return moviesWrapper.getTopRated();
         }
 
@@ -113,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
 
         @Override
         protected ArrayList<FilmData> doInBackground(Context... contexts) {
-            MovieApiWrapper moviesWrapper = new MovieApiWrapper(new FakeMovieDbService(contexts[0]));
+            MovieApiWrapper moviesWrapper = new MovieApiWrapper(new MovieDbService());
             return moviesWrapper.getMostPopular();
         }
 

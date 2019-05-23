@@ -1,6 +1,7 @@
 package com.android.seanluckett.popularmovies.utils;
 
 import android.net.Uri;
+import android.util.Log;
 
 import com.android.seanluckett.popularmovies.models.FilmData;
 
@@ -21,6 +22,7 @@ public class FilmDataJsonUtils {
     private static final ArrayList<FilmData> films = new ArrayList<>();
 
     public static ArrayList<FilmData> parseMovieList(String json) {
+        Log.i(MovieDbService.TAG, "Passed json looks like: \n" + json);
         try {
             JSONObject movieJson = new JSONObject(json);
             JSONArray movies = movieJson.getJSONArray("results");

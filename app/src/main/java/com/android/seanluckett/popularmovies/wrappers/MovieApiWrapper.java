@@ -13,12 +13,22 @@ public class MovieApiWrapper {
 
     public ArrayList<FilmData> getMostPopular() {
         String response = apiService.getMostPopular();
-        return parseList(response);
+
+        if (response  != null) {
+            return parseList(response);
+        } else {
+            return new ArrayList<>();
+        }
     }
 
     public ArrayList<FilmData> getTopRated() {
         String response = apiService.getTopRated();
-        return parseList(response);
+
+        if (response  != null) {
+            return parseList(response);
+        } else {
+            return new ArrayList<>();
+        }
     }
 
     private ArrayList<FilmData> parseList(String json) {

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.android.seanluckett.popularmovies.models.FilmData;
-import com.squareup.picasso.Picasso;
+import com.android.seanluckett.popularmovies.wrappers.MovieApiWrapper;
 
 import java.util.ArrayList;
 
@@ -36,10 +36,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdap
     @Override
     public void onBindViewHolder(@NonNull MoviesAdapterViewHolder moviesAdapterViewHolder, int i) {
         FilmData movie = movieListData.get(i);
-        // TODO add placeholder and possibly error images
-        Picasso.get()
-            .load(movie.getPosterImagePath())
-            .into(moviesAdapterViewHolder.moviePosterImageView);
+        MovieApiWrapper.loadPosterIntoView(
+            moviesAdapterViewHolder.moviePosterImageView,
+            movie);
     }
 
     @Override

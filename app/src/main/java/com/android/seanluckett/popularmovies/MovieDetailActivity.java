@@ -3,12 +3,11 @@ package com.android.seanluckett.popularmovies;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.seanluckett.popularmovies.models.FilmData;
-import com.squareup.picasso.Picasso;
+import com.android.seanluckett.popularmovies.wrappers.MovieApiWrapper;
 
 public class MovieDetailActivity extends AppCompatActivity {
 
@@ -28,9 +27,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
                 // Can't wait to use data binding
                 ImageView posterView = findViewById(R.id.detail_poster_image);
-                Picasso.get()
-                    .load(selectedMovie.getPosterImagePath())
-                    .into(posterView);
+                MovieApiWrapper.loadPosterIntoView(posterView, selectedMovie);
 
                 TextView rating = findViewById(R.id.detail_rating_text);
                 rating.setText(selectedMovie.getUserRating().toString());

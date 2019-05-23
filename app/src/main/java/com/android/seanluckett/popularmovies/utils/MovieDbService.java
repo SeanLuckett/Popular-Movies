@@ -1,10 +1,8 @@
 package com.android.seanluckett.popularmovies.utils;
 
 import android.net.Uri;
-import android.util.Log;
 
 import com.android.seanluckett.popularmovies.BuildConfig;
-import com.android.seanluckett.popularmovies.MovieDetailActivity;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -15,7 +13,6 @@ import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.Buffer;
 
 public class MovieDbService implements ApiService {
     public static final String TAG = MovieDbService.class.getSimpleName();
@@ -38,9 +35,10 @@ public class MovieDbService implements ApiService {
             connection = (HttpURLConnection) popularMoviesUrl.openConnection();
 
             InputStream in = new BufferedInputStream(connection.getInputStream());
-            connection.disconnect();
 
-            return writeJsonResponse(in);
+            String json = buildJsonResponse(in);
+            connection.disconnect();
+            return json;
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -56,9 +54,10 @@ public class MovieDbService implements ApiService {
             connection = (HttpURLConnection) popularMoviesUrl.openConnection();
 
             InputStream in = new BufferedInputStream(connection.getInputStream());
-            connection.disconnect();
 
-            return writeJsonResponse(in);
+            String json = buildJsonResponse(in);
+            connection.disconnect();
+            return json;
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -77,7 +76,7 @@ public class MovieDbService implements ApiService {
         return new URL(builtUri.toString());
     }
 
-    private String writeJsonResponse(InputStream in) throws IOException {
+    private String buildJsonResponse(InputStream in) throws IOException {
         Reader jsonReader = new InputStreamReader(in);
         BufferedReader reader = new BufferedReader(jsonReader);
         StringBuilder jsonResponse = new StringBuilder();

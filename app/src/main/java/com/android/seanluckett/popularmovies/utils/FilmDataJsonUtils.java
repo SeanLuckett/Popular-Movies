@@ -1,7 +1,6 @@
 package com.android.seanluckett.popularmovies.utils;
 
 import android.net.Uri;
-import android.util.Log;
 
 import com.android.seanluckett.popularmovies.models.FilmData;
 
@@ -9,7 +8,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URL;
 import java.util.ArrayList;
 
 public class FilmDataJsonUtils {

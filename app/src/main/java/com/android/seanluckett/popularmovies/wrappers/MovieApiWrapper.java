@@ -16,7 +16,7 @@ public class MovieApiWrapper {
     public static void loadPosterIntoView(ImageView view, FilmData movie) {
         Picasso.get()
             .load(movie.getPosterImagePath())
-            .placeholder(R.drawable.poster_placeholder)
+            .placeholder(R.mipmap.poster_placeholder)
             .error(R.drawable.ic_error_outline_accent_24dp)
             .into(view);
     }

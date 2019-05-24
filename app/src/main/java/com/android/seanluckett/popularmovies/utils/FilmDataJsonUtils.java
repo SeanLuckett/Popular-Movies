@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class FilmDataJsonUtils {
+    private static final String RESPONSE_DATA_KEY = "results";
     private static final String TITLE_KEY = "title";
     private static final String POSTER_KEY = "poster_path";
     private static final String PLOT_KEY = "overview";
@@ -23,7 +24,7 @@ public class FilmDataJsonUtils {
 
         try {
             JSONObject movieJson = new JSONObject(json);
-            JSONArray movies = movieJson.getJSONArray("results");
+            JSONArray movies = movieJson.getJSONArray(RESPONSE_DATA_KEY);
             FilmData film;
 
             for (int i = 0; i < movies.length(); i++) {

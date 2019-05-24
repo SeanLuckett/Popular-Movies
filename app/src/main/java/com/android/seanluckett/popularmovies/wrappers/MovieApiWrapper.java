@@ -25,25 +25,19 @@ public class MovieApiWrapper {
 
     public ArrayList<FilmData> getMostPopular() {
         String response = apiService.getMostPopular();
-
-        if (response  != null) {
-            return parseList(response);
-        } else {
-            return new ArrayList<>();
-        }
+        return parseList(response);
     }
 
     public ArrayList<FilmData> getTopRated() {
         String response = apiService.getTopRated();
-
-        if (response  != null) {
-            return parseList(response);
-        } else {
-            return new ArrayList<>();
-        }
+        return parseList(response);
     }
 
     private ArrayList<FilmData> parseList(String json) {
-        return new ArrayList<>(FilmDataJsonUtils.parseMovieList(json));
+        if (json != null) {
+            return new ArrayList<>(FilmDataJsonUtils.parseMovieList(json));
+        } else {
+            return new ArrayList<>();
+        }
     }
 }

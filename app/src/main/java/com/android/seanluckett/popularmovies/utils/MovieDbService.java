@@ -25,20 +25,11 @@ public class MovieDbService implements ApiService {
     private final String POPULAR_MOVIES_PATH = "movie/popular";
     private final String TOP_RATED_MOVIES_PATH = "movie/top_rated";
 
-    private HttpURLConnection connection;
-    private URL popularMoviesUrl;
-
     @Override
     public String getMostPopular() {
         try {
-            popularMoviesUrl = buildUrl(POPULAR_MOVIES_PATH);
-            connection = (HttpURLConnection) popularMoviesUrl.openConnection();
 
-            InputStream in = new BufferedInputStream(connection.getInputStream());
-
-            String json = buildJsonResponse(in);
-            connection.disconnect();
-            return json;
+            return fetchMoviesJson(POPULAR_MOVIES_PATH);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -50,20 +41,25 @@ public class MovieDbService implements ApiService {
     @Override
     public String getTopRated() {
         try {
-            popularMoviesUrl = buildUrl(TOP_RATED_MOVIES_PATH);
-            connection = (HttpURLConnection) popularMoviesUrl.openConnection();
 
-            InputStream in = new BufferedInputStream(connection.getInputStream());
-
-            String json = buildJsonResponse(in);
-            connection.disconnect();
-            return json;
+            return fetchMoviesJson(TOP_RATED_MOVIES_PATH);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         return null;
+    }
+
+    private String fetchMoviesJson(String path) throws IOException {
+        URL moviesApiUrl = buildUrl(path);
+        HttpURLConnection connection = (HttpURLConnection) moviesApiUrl.openConnection();
+
+        InputStream in = new BufferedInputStream(connection.getInputStream());
+
+        String json = buildJsonResponse(in);
+        connection.disconnect();
+        return json;
     }
 
     private URL buildUrl(String api_path) throws MalformedURLException {
@@ -82,7 +78,7 @@ public class MovieDbService implements ApiService {
         StringBuilder jsonResponse = new StringBuilder();
 
         String line;
-        while((line = reader.readLine()) != null) {
+        while ((line = reader.readLine()) != null) {
             jsonResponse.append(line);
         }
 

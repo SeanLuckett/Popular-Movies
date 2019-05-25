@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
 
         GridLayoutManager layoutManager = new GridLayoutManager(
             MainActivity.this,
-            2,
+            numberOfColumns(),
             GridLayoutManager.VERTICAL,
             false
         );
@@ -85,6 +86,17 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    private int numberOfColumns() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        int widthDivider = 400;
+        int numColumns = displayMetrics.widthPixels / widthDivider;
+        if (numColumns < 2) return 2; //to ensure grid behavior
+
+        return numColumns;
     }
 
     private void loadMovieData() {

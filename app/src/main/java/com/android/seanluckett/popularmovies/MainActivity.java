@@ -20,7 +20,7 @@ import com.android.seanluckett.popularmovies.wrappers.MovieApiWrapper;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements MoviesAdapter.MoviesAdapterOnClickHandler {
+public class MainActivity extends AppCompatActivity implements MoviesAdapterOnClickHandler {
     private static final String MOST_POPULAR_TITLE = "Popular Movies";
     private static final String TOP_RATED_TITLE = "Top Rated Movies";
 

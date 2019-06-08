@@ -15,6 +15,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.seanluckett.popularmovies.models.FilmData;
+import com.android.seanluckett.popularmovies.utils.ApiService;
+import com.android.seanluckett.popularmovies.utils.Configuration;
 import com.android.seanluckett.popularmovies.utils.MovieDbService;
 import com.android.seanluckett.popularmovies.wrappers.MovieApiWrapper;
 
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements MoviesAdapterOnClickHandler {
     private static final String MOST_POPULAR_TITLE = "Popular Movies";
     private static final String TOP_RATED_TITLE = "Top Rated Movies";
+    private final ApiService MOVIE_DATA_SERVICE = Configuration.getApiServiceObject(this.getApplication());
 
     private RecyclerView moviesRecyclerView;
     private MoviesAdapter moviesAdapter;
@@ -131,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapterOnCl
 
         @Override
         protected ArrayList<FilmData> doInBackground(Void... voids) {
-            MovieApiWrapper moviesWrapper = new MovieApiWrapper(new MovieDbService());
+            MovieApiWrapper moviesWrapper = new MovieApiWrapper(MOVIE_DATA_SERVICE);
             return moviesWrapper.getTopRated();
         }
 
@@ -158,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapterOnCl
 
         @Override
         protected ArrayList<FilmData> doInBackground(Void... voids) {
-            MovieApiWrapper moviesWrapper = new MovieApiWrapper(new MovieDbService());
+            MovieApiWrapper moviesWrapper = new MovieApiWrapper(MOVIE_DATA_SERVICE);
             return moviesWrapper.getMostPopular();
         }
 

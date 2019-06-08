@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MovieDetailActivity">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -98,5 +98,5 @@
                 tools:text="2019-04-24" />
 
         </LinearLayout>
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -2,10 +2,10 @@ package com.android.seanluckett.popularmovies;
 
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapterOnCl
         GridLayoutManager layoutManager = new GridLayoutManager(
             MainActivity.this,
             numberOfColumns(),
-            GridLayoutManager.VERTICAL,
+            RecyclerView.VERTICAL,
             false
         );
 

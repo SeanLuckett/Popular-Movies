@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.android.seanluckett.popularmovies.models.FilmData;
 import com.android.seanluckett.popularmovies.utils.ApiService;
 import com.android.seanluckett.popularmovies.utils.Configuration;
-import com.android.seanluckett.popularmovies.utils.MovieDbService;
 import com.android.seanluckett.popularmovies.wrappers.MovieApiWrapper;
 
 import java.util.ArrayList;
@@ -31,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapterOnCl
     private MoviesAdapter moviesAdapter;
     private ProgressBar loadingIndicator;
     private TextView errorMessageView;
+    private MovieApiWrapper moviesWrapper = new MovieApiWrapper(MOVIE_DATA_SERVICE);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,11 +103,11 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapterOnCl
     }
 
     private void loadMovieData() {
-        new FetchPopularMoviesTask().execute();
+        sortMoviesMostPopular();
     }
 
     private void sortMoviesMostPopular() {
-        loadMovieData();
+        new FetchPopularMoviesTask().execute();
     }
 
     private void sortMoviesTopRated() {
@@ -134,7 +134,6 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapterOnCl
 
         @Override
         protected ArrayList<FilmData> doInBackground(Void... voids) {
-            MovieApiWrapper moviesWrapper = new MovieApiWrapper(MOVIE_DATA_SERVICE);
             return moviesWrapper.getTopRated();
         }
 
@@ -161,7 +160,6 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapterOnCl
 
         @Override
         protected ArrayList<FilmData> doInBackground(Void... voids) {
-            MovieApiWrapper moviesWrapper = new MovieApiWrapper(MOVIE_DATA_SERVICE);
             return moviesWrapper.getMostPopular();
         }
 

@@ -25,12 +25,15 @@ class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapterViewHolder> {
         Context context = viewGroup.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.movie_list_item, viewGroup, false);
-        return new MoviesAdapterViewHolder(view, movieListData, clickHandler);
+
+        return new MoviesAdapterViewHolder(view, clickHandler);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MoviesAdapterViewHolder moviesAdapterViewHolder, int i) {
         FilmData movie = movieListData.get(i);
+        moviesAdapterViewHolder.bindData(movie);
+
         MovieApiWrapper.loadPosterIntoView(
             moviesAdapterViewHolder.moviePosterImageView,
             movie);

@@ -1,14 +1,16 @@
 package com.android.seanluckett.popularmovies;
 
 import android.content.Intent;
-import android.os.AsyncTask;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,24 +20,27 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.seanluckett.popularmovies.models.FilmData;
-import com.android.seanluckett.popularmovies.utils.ApiService;
-import com.android.seanluckett.popularmovies.utils.Configuration;
 import com.android.seanluckett.popularmovies.viewModels.PopularMoviesViewModel;
 import com.android.seanluckett.popularmovies.viewModels.TopMoviesViewModel;
-import com.android.seanluckett.popularmovies.wrappers.MovieApiWrapper;
 
 import java.util.ArrayList;
 
+import icepick.Icepick;
+import icepick.State;
+
 public class MainActivity extends AppCompatActivity implements MoviesAdapterOnClickHandler {
+    @State
+    String movieListType;
+    private final String MOVIE_LIST_STATE_POPULAR = "popular";
+    private final String MOVIE_LIST_STATE_TOP = "top_rated";
+
     private static final String MOST_POPULAR_TITLE = "Popular Movies";
     private static final String TOP_RATED_TITLE = "Top Rated Movies";
-    private final ApiService MOVIE_DATA_SERVICE = Configuration.getApiServiceObject(this.getApplication());
 
     private RecyclerView moviesRecyclerView;
     private MoviesAdapter moviesAdapter;
     private ProgressBar loadingIndicator;
     private TextView errorMessageView;
-    private MovieApiWrapper moviesWrapper = new MovieApiWrapper(MOVIE_DATA_SERVICE);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +65,16 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapterOnCl
         moviesRecyclerView.setAdapter(moviesAdapter);
 
         loadingIndicator = findViewById(R.id.loading_indicator);
-        loadingIndicator.setVisibility(View.VISIBLE);
+        showProgressLoader();
 
+        Icepick.restoreInstanceState(this, savedInstanceState);
         loadMovieData();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Icepick.saveInstanceState(this, outState);
     }
 
     @Override
@@ -82,6 +94,8 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapterOnCl
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        showProgressLoader();
+
         switch (item.getItemId()) {
             case R.id.sort_most_popular:
                 sortMoviesMostPopular();
@@ -109,10 +123,23 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapterOnCl
     }
 
     private void loadMovieData() {
-        sortMoviesMostPopular();
+        if (movieListType != null) {
+            switch (movieListType) {
+                case MOVIE_LIST_STATE_POPULAR:
+                    sortMoviesMostPopular();
+                    return;
+                case MOVIE_LIST_STATE_TOP:
+                    sortMoviesTopRated();
+                    return;
+            }
+        } else {
+            sortMoviesMostPopular();
+        }
     }
 
     private void sortMoviesMostPopular() {
+        movieListType = MOVIE_LIST_STATE_POPULAR;
+
         PopularMoviesViewModel movieModel =
             ViewModelProviders.of(this).get(PopularMoviesViewModel.class);
 
@@ -131,6 +158,8 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapterOnCl
     }
 
     private void sortMoviesTopRated() {
+        movieListType = MOVIE_LIST_STATE_TOP;
+
         TopMoviesViewModel movieModel =
             ViewModelProviders.of(this).get(TopMoviesViewModel.class);
 
@@ -153,34 +182,13 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapterOnCl
         moviesRecyclerView.setVisibility(View.VISIBLE);
     }
 
+    private void showProgressLoader() {
+        moviesRecyclerView.setVisibility(View.INVISIBLE);
+        loadingIndicator.setVisibility(View.VISIBLE);
+    }
+
     private void showErrorMessage() {
         moviesRecyclerView.setVisibility(View.INVISIBLE);
         errorMessageView.setVisibility(View.VISIBLE);
-    }
-
-    class FetchTopRatedMoviesTask extends AsyncTask<Void, Void, ArrayList<FilmData>> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            moviesRecyclerView.setVisibility(View.INVISIBLE);
-            loadingIndicator.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected ArrayList<FilmData> doInBackground(Void... voids) {
-            return moviesWrapper.getTopRated();
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<FilmData> filmData) {
-            loadingIndicator.setVisibility(View.INVISIBLE);
-
-            if (filmData != null && !filmData.isEmpty()) {
-                showMoviesView();
-                moviesAdapter.setMovieListData(filmData);
-            } else {
-                showErrorMessage();
-            }
-        }
     }
 }

@@ -4,9 +4,13 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,6 +21,7 @@ import android.widget.TextView;
 import com.android.seanluckett.popularmovies.models.FilmData;
 import com.android.seanluckett.popularmovies.utils.ApiService;
 import com.android.seanluckett.popularmovies.utils.Configuration;
+import com.android.seanluckett.popularmovies.viewModels.PopularMoviesViewModel;
 import com.android.seanluckett.popularmovies.wrappers.MovieApiWrapper;
 
 import java.util.ArrayList;
@@ -55,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapterOnCl
         moviesRecyclerView.setAdapter(moviesAdapter);
 
         loadingIndicator = findViewById(R.id.loading_indicator);
+        loadingIndicator.setVisibility(View.VISIBLE);
 
         loadMovieData();
     }
@@ -107,7 +113,22 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapterOnCl
     }
 
     private void sortMoviesMostPopular() {
-        new FetchPopularMoviesTask().execute();
+        PopularMoviesViewModel movieModel =
+            ViewModelProviders.of(this).get(PopularMoviesViewModel.class);
+
+        movieModel.getMovies().observe(this, new Observer<ArrayList<FilmData>>() {
+            @Override
+            public void onChanged(ArrayList<FilmData> movies) {
+                loadingIndicator.setVisibility(View.INVISIBLE);
+                Log.i(FilmData.TAG, "Observe#onChange() called!");
+                if (movies != null && !movies.isEmpty()) {
+                    showMoviesView();
+                    moviesAdapter.setMovieListData(movies);
+                } else {
+                    showErrorMessage();
+                }
+            }
+        });
     }
 
     private void sortMoviesTopRated() {
@@ -135,32 +156,6 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapterOnCl
         @Override
         protected ArrayList<FilmData> doInBackground(Void... voids) {
             return moviesWrapper.getTopRated();
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<FilmData> filmData) {
-            loadingIndicator.setVisibility(View.INVISIBLE);
-
-            if (filmData != null && !filmData.isEmpty()) {
-                showMoviesView();
-                moviesAdapter.setMovieListData(filmData);
-            } else {
-                showErrorMessage();
-            }
-        }
-    }
-
-    class FetchPopularMoviesTask extends AsyncTask<Void, Void, ArrayList<FilmData>> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            moviesRecyclerView.setVisibility(View.INVISIBLE);
-            loadingIndicator.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected ArrayList<FilmData> doInBackground(Void... voids) {
-            return moviesWrapper.getMostPopular();
         }
 
         @Override

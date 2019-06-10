@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,6 +21,7 @@ import com.android.seanluckett.popularmovies.models.FilmData;
 import com.android.seanluckett.popularmovies.utils.ApiService;
 import com.android.seanluckett.popularmovies.utils.Configuration;
 import com.android.seanluckett.popularmovies.viewModels.PopularMoviesViewModel;
+import com.android.seanluckett.popularmovies.viewModels.TopMoviesViewModel;
 import com.android.seanluckett.popularmovies.wrappers.MovieApiWrapper;
 
 import java.util.ArrayList;
@@ -120,7 +120,6 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapterOnCl
             @Override
             public void onChanged(ArrayList<FilmData> movies) {
                 loadingIndicator.setVisibility(View.INVISIBLE);
-                Log.i(FilmData.TAG, "Observe#onChange() called!");
                 if (movies != null && !movies.isEmpty()) {
                     showMoviesView();
                     moviesAdapter.setMovieListData(movies);
@@ -132,7 +131,21 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapterOnCl
     }
 
     private void sortMoviesTopRated() {
-        new FetchTopRatedMoviesTask().execute();
+        TopMoviesViewModel movieModel =
+            ViewModelProviders.of(this).get(TopMoviesViewModel.class);
+
+        movieModel.getMovies().observe(this, new Observer<ArrayList<FilmData>>() {
+            @Override
+            public void onChanged(ArrayList<FilmData> movies) {
+                loadingIndicator.setVisibility(View.INVISIBLE);
+                if (movies != null && !movies.isEmpty()) {
+                    showMoviesView();
+                    moviesAdapter.setMovieListData(movies);
+                } else {
+                    showErrorMessage();
+                }
+            }
+        });
     }
 
     private void showMoviesView() {

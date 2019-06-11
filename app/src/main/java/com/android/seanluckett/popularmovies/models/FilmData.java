@@ -4,6 +4,10 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 // TODO use parceler library to handle boilerplate some day
 // https://github.com/johncarl81/parceler
 
@@ -16,6 +20,7 @@ public class FilmData implements Parcelable {
     private final String mPlot;
     private final Double mUserRating;
     private final String mReleaseDate;
+    private String mReleaseYear;
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
@@ -79,9 +84,29 @@ public class FilmData implements Parcelable {
 
     public String getReleaseDate() { return (mReleaseDate != null) ? mReleaseDate : ""; }
 
+    public String getReleaseYear() {
+        if (mReleaseYear != null) { return mReleaseYear; }
+
+        mReleaseYear = parseReleaseYear();
+        return mReleaseYear;
+    }
+
     /********** Setters ***********/
 
 
+    private String parseReleaseYear() {
+        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+
+        try {
+            date = parser.parse(mReleaseDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
+        return formatter.format(date);
+    }
 
     /********** Parcelable Creator ***********/
 

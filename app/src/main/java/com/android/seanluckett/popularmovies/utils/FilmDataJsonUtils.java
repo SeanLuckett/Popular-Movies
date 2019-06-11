@@ -1,6 +1,7 @@
 package com.android.seanluckett.popularmovies.utils;
 
 import android.net.Uri;
+import java.text.DateFormat;
 
 import com.android.seanluckett.popularmovies.models.FilmData;
 
@@ -8,7 +9,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class FilmDataJsonUtils {
     private static final String RESPONSE_DATA_KEY = "results";

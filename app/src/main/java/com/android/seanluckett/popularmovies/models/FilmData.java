@@ -10,6 +10,7 @@ import android.os.Parcelable;
 public class FilmData implements Parcelable {
     public static final String TAG = FilmData.class.getSimpleName();
 
+    private final int mId;
     private final String mTitle;
     private final Uri mPosterImagePath;
     private final String mPlot;
@@ -18,6 +19,7 @@ public class FilmData implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mId);
         dest.writeString(mTitle);
         dest.writeString(mPlot);
         dest.writeString(mReleaseDate);
@@ -27,6 +29,7 @@ public class FilmData implements Parcelable {
     }
 
     private FilmData(Parcel in) {
+        mId = in.readInt();
         mTitle = in.readString();
         mPlot = in.readString();
         mReleaseDate = in.readString();
@@ -41,12 +44,14 @@ public class FilmData implements Parcelable {
     }
 
     public FilmData(
+        int id,
         String title,
         Uri posterImagePath,
         String plot,
         Double userRating,
         String releaseDate
     ) {
+        mId = id;
         mTitle = title;
         mPosterImagePath = posterImagePath;
         mPlot = plot;
@@ -54,23 +59,31 @@ public class FilmData implements Parcelable {
         mReleaseDate = releaseDate;
     }
 
+    /********** Getters ***********/
+
     public Uri getPosterImagePath() {
         return mPosterImagePath;
     }
 
     public String getTitle() {
-        return mTitle;
+        return (mTitle != null) ? mTitle : "";
     }
 
     public String getPlot() {
-        return mPlot;
+        return (mPlot != null) ? mPlot : "";
     }
 
     public Double getUserRating() {
-        return mUserRating;
+        return (mUserRating != null) ? mUserRating : 0.0d;
     }
 
-    public String getReleaseDate() { return mReleaseDate; }
+    public String getReleaseDate() { return (mReleaseDate != null) ? mReleaseDate : ""; }
+
+    /********** Setters ***********/
+
+
+
+    /********** Parcelable Creator ***********/
 
     public static final Parcelable.Creator<FilmData> CREATOR =
         new Parcelable.Creator<FilmData>() {

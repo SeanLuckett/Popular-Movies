@@ -12,8 +12,11 @@ import java.util.ArrayList;
 
 public class FilmDataJsonUtils {
     private static final String RESPONSE_DATA_KEY = "results";
-    private static final String TITLE_KEY = "title";
+
+    private static final String ID_KEY = "id";
     private static final String POSTER_KEY = "poster_path";
+
+    private static final String TITLE_KEY = "title";
     private static final String PLOT_KEY = "overview";
     private static final String AVERAGE_VOTE_KEY = "vote_average";
     private static final String RELEASE_DATE_KEY = "release_date";
@@ -41,12 +44,13 @@ public class FilmDataJsonUtils {
     }
 
     private static FilmData parseMovieJson(JSONObject filmJson) throws JSONException {
+        int id = filmJson.getInt(ID_KEY);
         String title = filmJson.getString(TITLE_KEY);
         Uri posterPath = BuildFullPosterUri.execute(filmJson.getString(POSTER_KEY));
         String plotSummary = filmJson.getString(PLOT_KEY);
         Double userAverage = filmJson.getDouble(AVERAGE_VOTE_KEY);
         String releaseDate = filmJson.getString(RELEASE_DATE_KEY);
 
-        return new FilmData(title, posterPath, plotSummary, userAverage, releaseDate);
+        return new FilmData(id, title, posterPath, plotSummary, userAverage, releaseDate);
     }
 }

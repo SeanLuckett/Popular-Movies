@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">Popular Movies</string>
     <string name="movie_poster_image">Movie poster image</string>
-    <string name="out_of_ten">/10</string>
+    <string name="out_of_ten">/ 10</string>
     <string name="sort_most_popular">Most popular</string>
     <string name="sort_top_rated">Top rated</string>
     <string name="error_message_text">An error occurred loading movie data. Please click a sort option to try again.</string>
-    <string name="released_header">Released:</string>
     <string name="gold_star_content_desc">gold star</string>
+    <string name="favorite_button_label">Mark as \nfavorite</string>
+    <string name="movie_details_title">Movie details</string>
+    <string name="example_movie_title">Re: Zero kara Hajimeru Isekai Seikatsu - Memory Snow</string>
 </resources>

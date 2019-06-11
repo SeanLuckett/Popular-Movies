@@ -24,9 +24,11 @@ public class MovieDetailActivity extends AppCompatActivity {
         if (intent != null) {
             if (intent.hasExtra(FilmData.TAG)) {
                 FilmData selectedMovie = intent.getParcelableExtra(FilmData.TAG);
-                getSupportActionBar().setTitle(selectedMovie.getTitle());
+                getSupportActionBar().setTitle(this.getString(R.string.movie_details_title));
 
-                // Can't wait to use data binding
+                TextView movieTitle = findViewById(R.id.movie_title_text);
+                movieTitle.setText(selectedMovie.getTitle());
+
                 ImageView posterView = findViewById(R.id.detail_poster_image);
                 MovieApiWrapper.loadPosterIntoView(posterView, selectedMovie);
 

@@ -2,4 +2,8 @@
 <resources>
     <dimen name="default_text">18sp</dimen>
     <dimen name="alert_text">22sp</dimen>
+    <dimen name="ratings_text">12sp</dimen>
+
+    <dimen name="detail_meta_spacing">8dp</dimen>
+    <dimen name="rating_icon">20dp</dimen>
 </resources>

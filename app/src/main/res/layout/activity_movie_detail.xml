@@ -10,6 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <TextView
+            android:id="@+id/movie_title_text"
+            style="@style/movie_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/example_movie_title" />
+
         <ImageView
             android:id="@+id/detail_poster_image"
             android:layout_width="0dp"
@@ -20,8 +29,74 @@
             android:contentDescription="@string/movie_poster_image"
             android:scaleType="fitStart"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movie_title_text"
             tools:srcCompat="@tools:sample/avatars[14]" />
+
+        <TextView
+            android:id="@+id/detail_release_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textSize="@dimen/default_text"
+            app:layout_constraintStart_toEndOf="@+id/detail_poster_image"
+            app:layout_constraintTop_toBottomOf="@+id/movie_title_text"
+            tools:text="2019" />
+
+        <TextView
+            android:id="@+id/detail_movie_runtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/detail_meta_spacing"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="italic"
+            app:layout_constraintStart_toStartOf="@+id/detail_release_date"
+            app:layout_constraintTop_toBottomOf="@+id/detail_release_date"
+            tools:text="122min" />
+
+        <LinearLayout
+            android:id="@+id/detail_rating"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/detail_release_date"
+            app:layout_constraintTop_toBottomOf="@+id/detail_movie_runtime">
+
+            <ImageView
+                android:id="@+id/detail_rating_star"
+                android:layout_width="@dimen/rating_icon"
+                android:layout_height="@dimen/rating_icon"
+                android:layout_marginTop="2dp"
+                android:contentDescription="@string/gold_star_content_desc"
+                app:srcCompat="@drawable/ic_star_gold_24dp" />
+
+            <TextView
+                android:id="@+id/detail_rating_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:textSize="@dimen/ratings_text"
+                tools:text="7.1" />
+
+            <TextView
+                android:id="@+id/detail_rating_out_of"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="@dimen/detail_meta_spacing"
+                android:text="@string/out_of_ten"
+                android:textSize="@dimen/ratings_text" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/make_favorite_button"
+            style="@style/text_button"
+            android:text="@string/favorite_button_label"
+            app:layout_constraintStart_toStartOf="@+id/detail_rating"
+            app:layout_constraintTop_toBottomOf="@+id/detail_rating" />
 
         <TextView
             android:id="@+id/plot_summary"
@@ -36,67 +111,5 @@
             app:layout_constraintTop_toBottomOf="@+id/detail_poster_image"
             tools:text="After the devastating events of Avengers: Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos' actions and restore order to the universe once and for all, no matter what consequences may be in store." />
 
-        <LinearLayout
-            android:id="@+id/detail_rating"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="28dp"
-            app:layout_constraintStart_toEndOf="@+id/detail_poster_image"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/detail_rating_star"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:contentDescription="@string/gold_star_content_desc"
-                app:srcCompat="@drawable/ic_star_gold_24dp" />
-
-            <TextView
-                android:id="@+id/detail_rating_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:textSize="@dimen/default_text"
-                tools:text="7" />
-
-            <TextView
-                android:id="@+id/detail_rating_out_of"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:text="@string/out_of_ten"
-                android:textSize="@dimen/default_text" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/detail_release"
-            android:layout_width="187dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            app:layout_constraintStart_toEndOf="@+id/detail_poster_image"
-            app:layout_constraintTop_toBottomOf="@+id/detail_rating">
-
-            <TextView
-                android:id="@+id/detail_release_header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/released_header"
-                android:textSize="@dimen/default_text"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/detail_release_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="8dp"
-                android:textSize="@dimen/default_text"
-                tools:text="2019-04-24" />
-
-        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

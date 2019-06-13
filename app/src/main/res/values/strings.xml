@@ -9,4 +9,5 @@
     <string name="favorite_button_label">Mark as \nfavorite</string>
     <string name="movie_details_title">Movie info</string>
     <string name="example_movie_title">Re: Zero kara Hajimeru Isekai Seikatsu - Memory Snow</string>
+    <string name="trailers_label">Trailers:</string>
 </resources>

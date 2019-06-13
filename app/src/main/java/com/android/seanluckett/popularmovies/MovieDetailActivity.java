@@ -31,6 +31,7 @@ public class MovieDetailActivity extends AppCompatActivity {
                 getSupportActionBar().setTitle(this.getString(R.string.movie_details_title));
 
                 viewPager = findViewById(R.id.movie_detail_pager);
+
                 pagerAdapter = new MovieDetailPagerAdapter(
                     getSupportFragmentManager(), selectedMovie, getApplication()
                 );

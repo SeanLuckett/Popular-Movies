@@ -15,6 +15,9 @@ import java.util.ArrayList;
 public class MovieTrailersAdapter extends RecyclerView.Adapter<MovieTrailerViewHolder> {
 
     private ArrayList<TrailerData> trailerListData;
+    private final MovieTrailersOnClickHandler clickHandler;
+
+    MovieTrailersAdapter(MovieTrailersOnClickHandler handler) { clickHandler = handler; }
 
     @NonNull
     @Override
@@ -23,7 +26,7 @@ public class MovieTrailersAdapter extends RecyclerView.Adapter<MovieTrailerViewH
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.movie_trailers_item, parent, false);
 
-        return new MovieTrailerViewHolder(view);
+        return new MovieTrailerViewHolder(view, clickHandler);
     }
 
     @Override

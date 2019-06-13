@@ -25,6 +25,7 @@ public class FilmDataJsonUtils {
     private static final String TRAILER_NAME_KEY = "name";
     private static final String TRAILER_TYPE_KEY = "type";
     private static final String TRAILER_SIZE_KEY = "size";
+    private static final String TRAILER_KEY_KEY = "key";
 
 
     public static ArrayList<FilmData> parseMovieList(String json) {
@@ -73,8 +74,9 @@ public class FilmDataJsonUtils {
         String name = trailerJson.getString(TRAILER_NAME_KEY);
         String type = trailerJson.getString(TRAILER_TYPE_KEY);
         String size = trailerJson.getString(TRAILER_SIZE_KEY);
+        String key = trailerJson.getString(TRAILER_KEY_KEY);
 
-        return new TrailerData(name, type, size);
+        return new TrailerData(name, type, size, key);
     }
 
     private static FilmData parseMovieJson(JSONObject filmJson) throws JSONException {

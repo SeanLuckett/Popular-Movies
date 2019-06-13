@@ -8,18 +8,28 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.seanluckett.popularmovies.models.TrailerData;
 
-public class MovieTrailerViewHolder extends RecyclerView.ViewHolder {
-    final TextView trailerName, trailerType, trailerSize;
 
+public class MovieTrailerViewHolder extends RecyclerView.ViewHolder implements
+    View.OnClickListener {
+
+    final TextView trailerName, trailerType, trailerSize;
+    private final MovieTrailersOnClickHandler clickHandler;
     private TrailerData selectedTrailer;
 
-    public MovieTrailerViewHolder(@NonNull View itemView) {
-        super(itemView);
+    MovieTrailerViewHolder(@NonNull View view, MovieTrailersOnClickHandler handler) {
+        super(view);
+        clickHandler = handler;
 
         trailerName = itemView.findViewById(R.id.trailer_name);
         trailerType = itemView.findViewById(R.id.trailer_type);
         trailerSize = itemView.findViewById(R.id.trailer_size);
+        view.setOnClickListener(this);
     }
 
     public void bindData(TrailerData trailer) { selectedTrailer = trailer; }
+
+    @Override
+    public void onClick(View v) {
+        clickHandler.onTrailerClicked(selectedTrailer);
+    }
 }

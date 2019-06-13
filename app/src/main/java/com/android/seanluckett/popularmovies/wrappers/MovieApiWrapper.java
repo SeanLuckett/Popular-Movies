@@ -4,6 +4,7 @@ import android.widget.ImageView;
 
 import com.android.seanluckett.popularmovies.R;
 import com.android.seanluckett.popularmovies.models.FilmData;
+import com.android.seanluckett.popularmovies.models.TrailerData;
 import com.android.seanluckett.popularmovies.utils.ApiService;
 import com.android.seanluckett.popularmovies.utils.FilmDataJsonUtils;
 import com.squareup.picasso.Picasso;
@@ -33,9 +34,22 @@ public class MovieApiWrapper {
         return parseList(response);
     }
 
+    public ArrayList<TrailerData> getTrailers(int id) {
+        String response = apiService.getTrailers(id);
+        return parseTrailers(response);
+    }
+
     private ArrayList<FilmData> parseList(String json) {
         if (json != null) {
             return new ArrayList<>(FilmDataJsonUtils.parseMovieList(json));
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+    private ArrayList<TrailerData> parseTrailers(String json) {
+        if (json != null) {
+            return new ArrayList<>(FilmDataJsonUtils.parseTrailerList(json));
         } else {
             return new ArrayList<>();
         }

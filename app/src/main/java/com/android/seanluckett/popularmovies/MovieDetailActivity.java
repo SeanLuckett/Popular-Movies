@@ -31,25 +31,11 @@ public class MovieDetailActivity extends AppCompatActivity {
                 getSupportActionBar().setTitle(this.getString(R.string.movie_details_title));
 
                 viewPager = findViewById(R.id.movie_detail_pager);
-                pagerAdapter = new MovieDetailPagerAdapter(getSupportFragmentManager(), selectedMovie);
+                pagerAdapter = new MovieDetailPagerAdapter(
+                    getSupportFragmentManager(), selectedMovie, getApplication()
+                );
+
                 viewPager.setAdapter(pagerAdapter);
-
-
-//                TextView movieTitle = findViewById(R.id.movie_title_text);
-//                movieTitle.setText(selectedMovie.getTitle());
-//
-//                ImageView posterView = findViewById(R.id.detail_poster_image);
-//                MovieApiWrapper.loadPosterIntoView(posterView, selectedMovie);
-//
-//                TextView rating = findViewById(R.id.detail_rating_text);
-//                rating.setText(selectedMovie.getUserRating().toString());
-//
-//                TextView releaseDate = findViewById(R.id.detail_release_date);
-//                releaseDate.setText(selectedMovie.getReleaseYear());
-//
-//                TextView plot = findViewById(R.id.plot_summary);
-//                plot.setText(selectedMovie.getPlot());
-
             }
         }
     }

@@ -1,17 +1,15 @@
 package com.android.seanluckett.popularmovies.utils;
 
 import android.net.Uri;
-import java.text.DateFormat;
 
 import com.android.seanluckett.popularmovies.models.FilmData;
+import com.android.seanluckett.popularmovies.models.TrailerData;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class FilmDataJsonUtils {
     private static final String RESPONSE_DATA_KEY = "results";
@@ -23,6 +21,10 @@ public class FilmDataJsonUtils {
     private static final String PLOT_KEY = "overview";
     private static final String AVERAGE_VOTE_KEY = "vote_average";
     private static final String RELEASE_DATE_KEY = "release_date";
+
+    private static final String TRAILER_NAME_KEY = "name";
+    private static final String TRAILER_TYPE_KEY = "type";
+    private static final String TRAILER_SIZE_KEY = "size";
 
 
     public static ArrayList<FilmData> parseMovieList(String json) {
@@ -44,6 +46,35 @@ public class FilmDataJsonUtils {
         }
 
         return films;
+    }
+
+    public static ArrayList<TrailerData> parseTrailerList(String json) {
+        ArrayList<TrailerData> trailers = new ArrayList<>();
+
+        try {
+            JSONObject trailerJson = new JSONObject(json);
+            JSONArray trailersArray = trailerJson.getJSONArray(RESPONSE_DATA_KEY);
+            TrailerData trailer;
+
+            for (int i = 0; i < trailersArray.length(); i++) {
+                JSONObject filmJson = trailersArray.getJSONObject(i);
+                trailer = parseTrailerJson(filmJson);
+                trailers.add(trailer);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return trailers;
+    }
+
+    private static TrailerData parseTrailerJson(JSONObject trailerJson) throws JSONException {
+        String name = trailerJson.getString(TRAILER_NAME_KEY);
+        String type = trailerJson.getString(TRAILER_TYPE_KEY);
+        String size = trailerJson.getString(TRAILER_SIZE_KEY);
+
+        return new TrailerData(name, type, size);
     }
 
     private static FilmData parseMovieJson(JSONObject filmJson) throws JSONException {

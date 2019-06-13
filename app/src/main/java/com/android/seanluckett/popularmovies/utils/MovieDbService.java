@@ -51,6 +51,28 @@ public class MovieDbService implements ApiService {
         return null;
     }
 
+    @Override
+    public String getTrailers(int id) {
+        try {
+            return fetchTrailersJson("movie/" + id + "/videos");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    private String fetchTrailersJson(String path) throws IOException {
+        URL moviesApiUrl = buildUrl(path);
+        HttpURLConnection connection = (HttpURLConnection) moviesApiUrl.openConnection();
+
+        InputStream in = new BufferedInputStream(connection.getInputStream());
+
+        String json = buildJsonResponse(in);
+        connection.disconnect();
+        return json;
+    }
+
     private String fetchMoviesJson(String path) throws IOException {
         URL moviesApiUrl = buildUrl(path);
         HttpURLConnection connection = (HttpURLConnection) moviesApiUrl.openConnection();

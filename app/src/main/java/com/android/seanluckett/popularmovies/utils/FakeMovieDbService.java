@@ -40,6 +40,11 @@ public class FakeMovieDbService implements ApiService {
         return readJsonAsset(jsonResponse, "moviedb_top_rated_response.json");
     }
 
+    @Override
+    public String getTrailers(int id) {
+        return null;
+    }
+
     private String readJsonAsset(StringBuilder jsonResponse, String s) {
         try {
             InputStream topRatedJson = caller.getAssets().open(s);

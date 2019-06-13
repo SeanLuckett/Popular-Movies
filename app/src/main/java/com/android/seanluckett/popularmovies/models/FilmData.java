@@ -70,6 +70,8 @@ public class FilmData implements Parcelable {
         return mPosterImagePath;
     }
 
+    public int getId() { return mId; }
+
     public String getTitle() {
         return (mTitle != null) ? mTitle : "";
     }

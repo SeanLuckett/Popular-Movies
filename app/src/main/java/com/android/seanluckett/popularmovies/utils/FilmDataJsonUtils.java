@@ -3,6 +3,7 @@ package com.android.seanluckett.popularmovies.utils;
 import android.net.Uri;
 
 import com.android.seanluckett.popularmovies.models.FilmData;
+import com.android.seanluckett.popularmovies.models.ReviewData;
 import com.android.seanluckett.popularmovies.models.TrailerData;
 
 import org.json.JSONArray;
@@ -26,6 +27,9 @@ public class FilmDataJsonUtils {
     private static final String TRAILER_TYPE_KEY = "type";
     private static final String TRAILER_SIZE_KEY = "size";
     private static final String TRAILER_KEY_KEY = "key";
+
+    private static final String REVIEW_AUTHOR_KEY = "author";
+    private static final String REVIEW_TEXT_KEY = "content";
 
 
     public static ArrayList<FilmData> parseMovieList(String json) {
@@ -70,6 +74,27 @@ public class FilmDataJsonUtils {
         return trailers;
     }
 
+    public static ArrayList<ReviewData> parseReviewList(String json) {
+        ArrayList<ReviewData> reviews = new ArrayList<>();
+
+        try {
+            JSONObject trailerJson = new JSONObject(json);
+            JSONArray trailersArray = trailerJson.getJSONArray(RESPONSE_DATA_KEY);
+            ReviewData review;
+
+            for (int i = 0; i < trailersArray.length(); i++) {
+                JSONObject filmJson = trailersArray.getJSONObject(i);
+                review = parseReviewJson(filmJson);
+                reviews.add(review);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return reviews;
+    }
+
     private static TrailerData parseTrailerJson(JSONObject trailerJson) throws JSONException {
         String name = trailerJson.getString(TRAILER_NAME_KEY);
         String type = trailerJson.getString(TRAILER_TYPE_KEY);
@@ -77,6 +102,13 @@ public class FilmDataJsonUtils {
         String key = trailerJson.getString(TRAILER_KEY_KEY);
 
         return new TrailerData(name, type, size, key);
+    }
+
+    private static ReviewData parseReviewJson(JSONObject reviewJson) throws JSONException {
+        String author = reviewJson.getString(REVIEW_AUTHOR_KEY);
+        String text = reviewJson.getString(REVIEW_TEXT_KEY);
+
+        return new ReviewData(author, text);
     }
 
     private static FilmData parseMovieJson(JSONObject filmJson) throws JSONException {

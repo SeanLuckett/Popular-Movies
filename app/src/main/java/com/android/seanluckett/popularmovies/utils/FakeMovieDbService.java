@@ -42,6 +42,13 @@ public class FakeMovieDbService implements ApiService {
 
     @Override
     public String getTrailers(int id) {
+        //TODO implement or delete FakeMovieDbService class
+        return null;
+    }
+
+    @Override
+    public String getReviews(int id) {
+        //TODO implement or delete FakeMovieDbService class
         return null;
     }
 

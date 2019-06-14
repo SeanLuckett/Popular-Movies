@@ -6,11 +6,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.android.seanluckett.popularmovies.models.FilmData;
-import com.android.seanluckett.popularmovies.wrappers.MovieApiWrapper;
 
 public class MovieDetailActivity extends AppCompatActivity {
     private ViewPager viewPager;

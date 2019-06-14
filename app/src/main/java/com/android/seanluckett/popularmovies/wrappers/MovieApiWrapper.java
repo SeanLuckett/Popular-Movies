@@ -4,6 +4,7 @@ import android.widget.ImageView;
 
 import com.android.seanluckett.popularmovies.R;
 import com.android.seanluckett.popularmovies.models.FilmData;
+import com.android.seanluckett.popularmovies.models.ReviewData;
 import com.android.seanluckett.popularmovies.models.TrailerData;
 import com.android.seanluckett.popularmovies.utils.ApiService;
 import com.android.seanluckett.popularmovies.utils.FilmDataJsonUtils;
@@ -39,6 +40,11 @@ public class MovieApiWrapper {
         return parseTrailers(response);
     }
 
+    public ArrayList<ReviewData> getReviews(int id) {
+        String response = apiService.getReviews(id);
+        return parseReviews(response);
+    }
+
     private ArrayList<FilmData> parseList(String json) {
         if (json != null) {
             return new ArrayList<>(FilmDataJsonUtils.parseMovieList(json));
@@ -50,6 +56,14 @@ public class MovieApiWrapper {
     private ArrayList<TrailerData> parseTrailers(String json) {
         if (json != null) {
             return new ArrayList<>(FilmDataJsonUtils.parseTrailerList(json));
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+    private ArrayList<ReviewData> parseReviews(String json) {
+        if (json != null) {
+            return new ArrayList<>(FilmDataJsonUtils.parseReviewList(json));
         } else {
             return new ArrayList<>();
         }

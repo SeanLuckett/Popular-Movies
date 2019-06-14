@@ -6,4 +6,5 @@ public interface ApiService {
     String getTopRated();
 
     String getTrailers(int id);
+    String getReviews(int id);
 }

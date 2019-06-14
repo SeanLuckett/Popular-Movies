@@ -44,7 +44,7 @@ public class MovieTrailersAdapter extends RecyclerView.Adapter<MovieTrailerViewH
         return (trailerListData != null) ? trailerListData.size() : 0;
     }
 
-    void setTrailerListData(ArrayList<TrailerData> trailers) {
+    public void setTrailerListData(ArrayList<TrailerData> trailers) {
         trailerListData = trailers;
         notifyDataSetChanged();
     }

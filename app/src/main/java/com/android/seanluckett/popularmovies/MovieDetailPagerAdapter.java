@@ -34,7 +34,7 @@ public class MovieDetailPagerAdapter extends FragmentPagerAdapter {
         switch(position) {
             case 0: return MovieDetailFragment.newInstance(movie);
             case 1: return MovieTrailersFragment.newInstance(movie, apiService);
-            case 2:
+            case 2: return MovieReviewsFragment.newInstance(movie, apiService);
             default: return MovieDetailFragment.newInstance(movie);
         }
     }

@@ -3,10 +3,8 @@ package com.android.seanluckett.popularmovies;
 
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -24,7 +22,6 @@ import com.android.seanluckett.popularmovies.models.FilmData;
 import com.android.seanluckett.popularmovies.models.TrailerData;
 import com.android.seanluckett.popularmovies.utils.ApiService;
 import com.android.seanluckett.popularmovies.viewModels.MovieTrailersViewModel;
-import com.android.seanluckett.popularmovies.wrappers.MovieApiWrapper;
 
 import java.util.ArrayList;
 
@@ -32,16 +29,11 @@ public class MovieTrailersFragment extends Fragment implements MovieTrailersOnCl
     private RecyclerView movieTrailersRecyclerView;
     private MovieTrailersAdapter trailersAdapter;
     private MovieTrailersViewModel trailerModel;
-    private MovieApiWrapper movieApiWrapper;
     private FilmData movie;
 
 
     public MovieTrailersFragment() {
         // Required empty public constructor
-    }
-
-    public MovieTrailersFragment(ApiService service) {
-        movieApiWrapper = new MovieApiWrapper(service);
     }
 
     @Override
@@ -66,7 +58,7 @@ public class MovieTrailersFragment extends Fragment implements MovieTrailersOnCl
         movieTrailersRecyclerView.setAdapter(trailersAdapter);
         movieTrailersRecyclerView.setHasFixedSize(true);
 
-        loadTrailer();
+        loadTrailers();
 
         return view;
     }
@@ -76,7 +68,7 @@ public class MovieTrailersFragment extends Fragment implements MovieTrailersOnCl
         Bundle args = new Bundle();
         args.putParcelable(MovieDetailPagerAdapter.MOVIE_KEY, movie);
 
-        MovieTrailersFragment fragment = new MovieTrailersFragment(service);
+        MovieTrailersFragment fragment = new MovieTrailersFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -94,14 +86,13 @@ public class MovieTrailersFragment extends Fragment implements MovieTrailersOnCl
         }
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private void loadTrailer() {
+    private void loadTrailers() {
         MovieTrailersViewModel trailerModel =
-            ViewModelProviders.of(this).get(MovieTrailersViewModel.class);
+            ViewModelProviders.of(getActivity()).get(MovieTrailersViewModel.class);
 
         trailerModel
             .getTrailers(movie.getId())
-            .observe(this, new Observer<ArrayList<TrailerData>>() {
+            .observe(getActivity(), new Observer<ArrayList<TrailerData>>() {
 
                 @Override
                 public void onChanged(ArrayList<TrailerData> trailers) {

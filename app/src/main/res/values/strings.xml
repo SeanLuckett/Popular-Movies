@@ -10,4 +10,7 @@
     <string name="movie_details_title">Movie info</string>
     <string name="example_movie_title">Re: Zero kara Hajimeru Isekai Seikatsu - Memory Snow</string>
     <string name="trailers_label">Trailers:</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

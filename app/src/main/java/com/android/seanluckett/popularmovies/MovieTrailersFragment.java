@@ -22,18 +22,23 @@ import com.android.seanluckett.popularmovies.models.FilmData;
 import com.android.seanluckett.popularmovies.models.TrailerData;
 import com.android.seanluckett.popularmovies.utils.ApiService;
 import com.android.seanluckett.popularmovies.viewModels.MovieTrailersViewModel;
+import com.android.seanluckett.popularmovies.wrappers.MovieApiWrapper;
 
 import java.util.ArrayList;
 
 public class MovieTrailersFragment extends Fragment implements MovieTrailersOnClickHandler {
     private RecyclerView movieTrailersRecyclerView;
     private MovieTrailersAdapter trailersAdapter;
-    private MovieTrailersViewModel trailerModel;
+    private MovieApiWrapper movieApiWrapper;
     private FilmData movie;
 
 
     public MovieTrailersFragment() {
         // Required empty public constructor
+    }
+
+    public MovieTrailersFragment(ApiService service) {
+        movieApiWrapper = new MovieApiWrapper(service);
     }
 
     @Override
@@ -58,7 +63,7 @@ public class MovieTrailersFragment extends Fragment implements MovieTrailersOnCl
         movieTrailersRecyclerView.setAdapter(trailersAdapter);
         movieTrailersRecyclerView.setHasFixedSize(true);
 
-        loadTrailers();
+        loadTrailer();
 
         return view;
     }
@@ -68,7 +73,7 @@ public class MovieTrailersFragment extends Fragment implements MovieTrailersOnCl
         Bundle args = new Bundle();
         args.putParcelable(MovieDetailPagerAdapter.MOVIE_KEY, movie);
 
-        MovieTrailersFragment fragment = new MovieTrailersFragment();
+        MovieTrailersFragment fragment = new MovieTrailersFragment(service);
         fragment.setArguments(args);
         return fragment;
     }
@@ -86,13 +91,14 @@ public class MovieTrailersFragment extends Fragment implements MovieTrailersOnCl
         }
     }
 
-    private void loadTrailers() {
+    @SuppressLint("StaticFieldLeak")
+    private void loadTrailer() {
         MovieTrailersViewModel trailerModel =
-            ViewModelProviders.of(getActivity()).get(MovieTrailersViewModel.class);
+            ViewModelProviders.of(this).get(MovieTrailersViewModel.class);
 
         trailerModel
             .getTrailers(movie.getId())
-            .observe(getActivity(), new Observer<ArrayList<TrailerData>>() {
+            .observe(this, new Observer<ArrayList<TrailerData>>() {
 
                 @Override
                 public void onChanged(ArrayList<TrailerData> trailers) {

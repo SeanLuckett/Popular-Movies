@@ -25,6 +25,11 @@ public class MovieTrailersViewModel extends AndroidViewModel {
     }
 
     public LiveData<ArrayList<TrailerData>> getTrailers(int movieId) {
-        return new MovieTrailersLiveData(apiWrapper, movieId);
+        if (trailers != null) {
+            return trailers;
+        } else {
+            trailers = new MovieTrailersLiveData(apiWrapper, movieId);
+            return trailers;
+        }
     }
 }

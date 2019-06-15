@@ -1,8 +1,5 @@
 package com.android.seanluckett.popularmovies;
 
-
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -18,7 +15,6 @@ import android.view.ViewGroup;
 
 import com.android.seanluckett.popularmovies.models.FilmData;
 import com.android.seanluckett.popularmovies.models.ReviewData;
-import com.android.seanluckett.popularmovies.utils.ApiService;
 import com.android.seanluckett.popularmovies.viewModels.MovieReviewsViewModel;
 
 import java.util.ArrayList;
@@ -36,16 +32,10 @@ public class MovieReviewsFragment extends Fragment {
         // Required empty public constructor
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        movie = getArguments().getParcelable(MovieDetailPagerAdapter.MOVIE_KEY);
-    }
-
-    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         reviewsAdapter = new MovieReviewsAdapter();
+        movie = getArguments().getParcelable(MovieDetailPagerAdapter.MOVIE_KEY);
     }
 
     @Override
@@ -68,9 +58,10 @@ public class MovieReviewsFragment extends Fragment {
         return view;
     }
 
-    public static MovieReviewsFragment newInstance(FilmData movie, ApiService service) {
+    public static MovieReviewsFragment newInstance(FilmData movie) {
 
         Bundle args = new Bundle();
+        args.putParcelable(MovieDetailPagerAdapter.MOVIE_KEY, movie);
 
         MovieReviewsFragment fragment = new MovieReviewsFragment();
         fragment.setArguments(args);

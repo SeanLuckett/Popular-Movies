@@ -20,25 +20,18 @@ import android.view.ViewGroup;
 
 import com.android.seanluckett.popularmovies.models.FilmData;
 import com.android.seanluckett.popularmovies.models.TrailerData;
-import com.android.seanluckett.popularmovies.utils.ApiService;
 import com.android.seanluckett.popularmovies.viewModels.MovieTrailersViewModel;
-import com.android.seanluckett.popularmovies.wrappers.MovieApiWrapper;
 
 import java.util.ArrayList;
 
 public class MovieTrailersFragment extends Fragment implements MovieTrailersOnClickHandler {
     private RecyclerView movieTrailersRecyclerView;
     private MovieTrailersAdapter trailersAdapter;
-    private MovieApiWrapper movieApiWrapper;
     private FilmData movie;
 
 
     public MovieTrailersFragment() {
         // Required empty public constructor
-    }
-
-    public MovieTrailersFragment(ApiService service) {
-        movieApiWrapper = new MovieApiWrapper(service);
     }
 
     @Override
@@ -68,12 +61,12 @@ public class MovieTrailersFragment extends Fragment implements MovieTrailersOnCl
         return view;
     }
 
-    public static MovieTrailersFragment newInstance(FilmData movie, ApiService service) {
+    public static MovieTrailersFragment newInstance(FilmData movie) {
 
         Bundle args = new Bundle();
         args.putParcelable(MovieDetailPagerAdapter.MOVIE_KEY, movie);
 
-        MovieTrailersFragment fragment = new MovieTrailersFragment(service);
+        MovieTrailersFragment fragment = new MovieTrailersFragment();
         fragment.setArguments(args);
         return fragment;
     }

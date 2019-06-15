@@ -25,6 +25,10 @@ public class MovieReviewsViewModel extends AndroidViewModel {
     }
 
     public LiveData<ArrayList<ReviewData>> getReviews(int movieId) {
-        return new MovieReviewsLiveData(apiWrapper, movieId);
+        if (reviews == null) {
+            reviews = new MovieReviewsLiveData(apiWrapper, movieId);
+        }
+
+        return reviews;
     }
 }

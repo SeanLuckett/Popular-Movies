@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.android.seanluckett.popularmovies.models.FilmData;
 import com.android.seanluckett.popularmovies.models.ReviewData;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
  */
 public class MovieReviewsFragment extends Fragment {
     private RecyclerView movieReviewRecyclerView;
+    private TextView noReviewsMessage;
     private MovieReviewsAdapter reviewsAdapter;
     private FilmData movie;
 
@@ -43,6 +45,7 @@ public class MovieReviewsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_movie_reviews, container, false);
+        noReviewsMessage = view.findViewById(R.id.missing_reviews_text);
 
         movieReviewRecyclerView = view.findViewById(R.id.rv_reviews);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(
@@ -54,6 +57,7 @@ public class MovieReviewsFragment extends Fragment {
         movieReviewRecyclerView.setHasFixedSize(true);
 
         loadReviews();
+
 
         return view;
     }
@@ -79,9 +83,16 @@ public class MovieReviewsFragment extends Fragment {
                 public void onChanged(ArrayList<ReviewData> reviews) {
                     if (reviews != null && !reviews.isEmpty()) {
                         reviewsAdapter.setReviewListData(reviews);
+                    } else {
+                        showNoReviews();
                     }
                 }
             });
 
+    }
+
+    private void showNoReviews() {
+        movieReviewRecyclerView.setVisibility(View.INVISIBLE);
+        noReviewsMessage.setVisibility(View.VISIBLE);
     }
 }

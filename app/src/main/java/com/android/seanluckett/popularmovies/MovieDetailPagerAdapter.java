@@ -1,7 +1,9 @@
 package com.android.seanluckett.popularmovies;
 
 import android.app.Application;
+import android.content.res.Resources;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -16,6 +18,7 @@ public class  MovieDetailPagerAdapter extends FragmentPagerAdapter {
     private final int TOTAL_PAGES = 3;
     private FilmData movie;
     private ApiService apiService;
+    private Application app;
 
     public MovieDetailPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -27,6 +30,7 @@ public class  MovieDetailPagerAdapter extends FragmentPagerAdapter {
         super(fm);
         apiService = Configuration.getApiServiceObject(application);
         movie = selectedMovie;
+        app = application;
     }
 
     @Override
@@ -42,5 +46,18 @@ public class  MovieDetailPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return TOTAL_PAGES;
+    }
+
+    @Nullable
+    @Override
+    public CharSequence getPageTitle(int position) {
+        Resources resources = app.getResources();
+
+        switch (position) {
+            case 0: return resources.getString(R.string.movie_detail_tab_label);
+            case 1: return resources.getString(R.string.movie_trailer_tab_label);
+            case 2: return resources.getString(R.string.movie_review_tab_label);
+            default: return resources.getString(R.string.movie_tab_label_overflow);
+        }
     }
 }

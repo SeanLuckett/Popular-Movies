@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.android.seanluckett.popularmovies.models.FilmData;
+import com.google.android.material.tabs.TabLayout;
 
 public class MovieDetailActivity extends AppCompatActivity {
     private ViewPager viewPager;
@@ -34,6 +35,9 @@ public class MovieDetailActivity extends AppCompatActivity {
                 );
 
                 viewPager.setAdapter(pagerAdapter);
+
+                TabLayout tabs = findViewById(R.id.movie_detail_tabs);
+                tabs.setupWithViewPager(viewPager);
             }
         }
     }

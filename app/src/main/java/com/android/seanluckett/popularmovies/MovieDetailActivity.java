@@ -6,6 +6,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.android.seanluckett.popularmovies.models.FilmData;
 import com.google.android.material.tabs.TabLayout;
@@ -19,6 +20,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
 
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
@@ -27,6 +29,9 @@ public class MovieDetailActivity extends AppCompatActivity {
             if (intent.hasExtra(FilmData.TAG)) {
                 FilmData selectedMovie = intent.getParcelableExtra(FilmData.TAG);
                 getSupportActionBar().setTitle(this.getString(R.string.movie_details_title));
+
+                TextView movieTitle = findViewById(R.id.movie_title_text);
+                movieTitle.setText(selectedMovie.getTitle());
 
                 viewPager = findViewById(R.id.movie_detail_pager);
 

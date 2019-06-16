@@ -32,9 +32,6 @@ public class MovieDetailFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_movie_detail, container, false);
 
-        TextView movieTitle = view.findViewById(R.id.movie_title_text);
-        movieTitle.setText(movie.getTitle());
-
         ImageView posterView = view.findViewById(R.id.detail_poster_image);
         MovieApiWrapper.loadPosterIntoView(posterView, movie);
 

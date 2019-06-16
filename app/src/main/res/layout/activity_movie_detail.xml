@@ -6,17 +6,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MovieDetailActivity">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/movie_detail_pager"
+    <TextView
+        android:id="@+id/movie_title_text"
+        style="@style/movie_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/example_movie_title" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/movie_detail_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="true"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/movie_title_text">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/movie_detail_tabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
     </androidx.viewpager.widget.ViewPager>
 

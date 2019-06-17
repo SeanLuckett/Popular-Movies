@@ -8,18 +8,13 @@
     android:layout_marginTop="8dp">
 
     <androidx.cardview.widget.CardView
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
         android:id="@+id/review_card"
-        app:cardBackgroundColor="@color/colorPrimaryLight"
-        app:cardCornerRadius="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp">
+        style="@style/review_card">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/review_author"
@@ -28,7 +23,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="16dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +35,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -50,7 +44,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 tools:text="Just like the Matrix series, the John Wick series is the child of; interesting concepts, mediocre direction, bad writing, bad dialogue, fine (ok) acting and good to great fight choreography... \n\nJohn Wick 3 outstays its welcome and becomes tedious with all the boring twists and uninspired resolutions.\n\nyou'll watch it once, forget it ever existed and then never watch it again." />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 

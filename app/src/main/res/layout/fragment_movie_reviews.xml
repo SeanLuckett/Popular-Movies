@@ -13,9 +13,7 @@
         android:id="@+id/rv_reviews" />
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="8dp">
+        style="@style/review_card">
 
         <TextView
             android:id="@+id/missing_reviews_text"

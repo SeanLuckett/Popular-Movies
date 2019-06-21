@@ -3,7 +3,9 @@ package com.android.seanluckett.popularmovies.database;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.android.seanluckett.popularmovies.models.Favorite;
 
@@ -15,8 +17,11 @@ public interface FavoriteDao {
     @Query("select * from favorites")
     List<Favorite> loadFavorites();
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Favorite favorite);
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    void update(Favorite favorite);
 
     @Delete
     void delete(Favorite favorite);

@@ -9,7 +9,7 @@ import androidx.room.TypeConverters;
 
 import com.android.seanluckett.popularmovies.models.Favorite;
 
-@Database(entities = {Favorite.class}, version = 1, exportSchema = false)
+@Database(entities = {Favorite.class}, version = 2, exportSchema = false)
 @TypeConverters(StringUriConverter.class)
 public abstract class FavoriteDatabase extends RoomDatabase {
     private static final String DATABASE_NAME = "popularmovies";
@@ -27,7 +27,7 @@ public abstract class FavoriteDatabase extends RoomDatabase {
             context,
             FavoriteDatabase.class,
             FavoriteDatabase.DATABASE_NAME
-        ).build();
+        ).fallbackToDestructiveMigration().build();
     }
 
     public abstract FavoriteDao getFavoriteDao();

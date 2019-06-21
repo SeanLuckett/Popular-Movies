@@ -7,15 +7,7 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-// TODO: add a favorite flag field to support "soft" deleting
-// Might be easier to toggle favorite rather than add/delete db rows
-// A user is likely to waffle on whether a movie is a favorite. Would
-// also optimize for accidental favorites.
-
-@Entity(
-    tableName = "favorites",
-    indices = {@Index("movieDbId")}
-    )
+@Entity(tableName = "favorites", indices = {@Index("movieDbId")})
 public class Favorite {
 
     @PrimaryKey(autoGenerate = true)
@@ -28,6 +20,7 @@ public class Favorite {
     private String plotSummary;
     private double rating;
     private String releaseYear;
+    private boolean isFavorite;
 
     @Ignore
     public Favorite(
@@ -35,12 +28,8 @@ public class Favorite {
         Uri posterImagePath, String plotSummary,
         double rating, String releaseYear
     ) {
-        this.movieDbId = movieDbId;
-        this.title = title;
-        this.posterImagePath = posterImagePath;
-        this.plotSummary = plotSummary;
-        this.rating = rating;
-        this.releaseYear = releaseYear;
+        initializeFavorite(movieDbId, title, posterImagePath, plotSummary,
+            rating, releaseYear, false);
     }
 
     public Favorite(
@@ -50,12 +39,23 @@ public class Favorite {
         String releaseYear
     ) {
         this.id = id;
+        initializeFavorite(movieDbId, title, posterImagePath, plotSummary,
+            rating, releaseYear, false);
+    }
+
+    public void initializeFavorite(
+        int movieDbId, String title,
+        Uri posterImagePath, String plotSummary,
+        double rating, String releaseYear,
+        boolean isFavorite
+    ) {
         this.movieDbId = movieDbId;
         this.title = title;
         this.posterImagePath = posterImagePath;
         this.plotSummary = plotSummary;
         this.rating = rating;
         this.releaseYear = releaseYear;
+        this.isFavorite = isFavorite;
     }
 
     public int getId() {
@@ -88,5 +88,17 @@ public class Favorite {
 
     public String getReleaseYear() {
         return releaseYear;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
+
+    public void toggleFavorite() {
+        this.isFavorite = isFavorite() ? false : true;
     }
 }

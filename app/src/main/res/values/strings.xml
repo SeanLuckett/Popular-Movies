@@ -6,7 +6,8 @@
     <string name="sort_top_rated">Top rated</string>
     <string name="error_message_text">An error occurred loading movie data. Please click a sort option to try again.</string>
     <string name="gold_star_content_desc">gold star</string>
-    <string name="favorite_button_label">Mark as \nfavorite</string>
+    <string name="make_favorite_label">Mark as \nfavorite</string>
+    <string name="unfavorite_label">Remove from \nfavorites</string>
     <string name="movie_details_title">Movie info</string>
     <string name="example_movie_title">Re: Zero kara Hajimeru Isekai Seikatsu - Memory Snow</string>
 

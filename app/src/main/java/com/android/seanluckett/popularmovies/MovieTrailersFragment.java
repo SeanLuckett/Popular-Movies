@@ -56,7 +56,7 @@ public class MovieTrailersFragment extends Fragment implements MovieTrailersOnCl
         movieTrailersRecyclerView.setAdapter(trailersAdapter);
         movieTrailersRecyclerView.setHasFixedSize(true);
 
-        loadTrailer();
+        loadTrailers();
 
         return view;
     }
@@ -85,7 +85,7 @@ public class MovieTrailersFragment extends Fragment implements MovieTrailersOnCl
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void loadTrailer() {
+    private void loadTrailers() {
         MovieTrailersViewModel trailerModel =
             ViewModelProviders.of(this).get(MovieTrailersViewModel.class);
 

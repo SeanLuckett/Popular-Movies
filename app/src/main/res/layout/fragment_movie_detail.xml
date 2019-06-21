@@ -75,7 +75,7 @@
         <Button
             android:id="@+id/make_favorite_button"
             style="@style/text_button"
-            android:text="@string/favorite_button_label"
+            android:text="@string/make_favorite_label"
             app:layout_constraintStart_toStartOf="@+id/detail_rating"
             app:layout_constraintTop_toBottomOf="@+id/detail_rating" />
 

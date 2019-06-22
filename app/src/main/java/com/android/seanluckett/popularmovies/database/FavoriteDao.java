@@ -14,7 +14,7 @@ import java.util.List;
 @Dao
 public interface FavoriteDao {
 
-    @Query("select * from favorites")
+    @Query("select * from favorites where isFavorite = 1")
     List<Favorite> loadFavorites();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

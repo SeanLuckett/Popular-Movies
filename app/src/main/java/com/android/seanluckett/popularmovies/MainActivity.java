@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -19,11 +20,14 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.android.seanluckett.popularmovies.models.Favorite;
 import com.android.seanluckett.popularmovies.models.FilmData;
+import com.android.seanluckett.popularmovies.viewModels.FavoritesListViewModel;
 import com.android.seanluckett.popularmovies.viewModels.PopularMoviesViewModel;
 import com.android.seanluckett.popularmovies.viewModels.TopMoviesViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import icepick.Icepick;
 import icepick.State;
@@ -33,9 +37,11 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapterOnCl
     String movieListType;
     private final String MOVIE_LIST_STATE_POPULAR = "popular";
     private final String MOVIE_LIST_STATE_TOP = "top_rated";
+    private final String MOVIE_LIST_STATE_FAVORITES = "favorites";
 
     private static final String MOST_POPULAR_TITLE = "Popular Movies";
     private static final String TOP_RATED_TITLE = "Top Rated Movies";
+    private static final String FAVORITES_TITLE = "Favorite Movies";
 
     private RecyclerView moviesRecyclerView;
     private MoviesAdapter moviesAdapter;
@@ -105,6 +111,9 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapterOnCl
                 sortMoviesTopRated();
                 getSupportActionBar().setTitle(TOP_RATED_TITLE);
                 return true;
+            case R.id.sort_favorites:
+                sortMoviesFavorites();
+                getSupportActionBar().setTitle(FAVORITES_TITLE);
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -130,6 +139,9 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapterOnCl
                     return;
                 case MOVIE_LIST_STATE_TOP:
                     sortMoviesTopRated();
+                    return;
+                case MOVIE_LIST_STATE_FAVORITES:
+                    sortMoviesFavorites();
                     return;
             }
         } else {
@@ -177,6 +189,27 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapterOnCl
         });
     }
 
+    private void sortMoviesFavorites() {
+        movieListType = MOVIE_LIST_STATE_FAVORITES;
+
+        FavoritesListViewModel favModel =
+            ViewModelProviders.of(this).get(FavoritesListViewModel.class);
+
+//        favModel.getFavorites().observe(this, new Observer<List<Favorite>>() {
+//
+//            @Override
+//            public void onChanged(List<Favorite> favorites) {
+//                loadingIndicator.setVisibility(View.INVISIBLE);
+//                if (favorites != null && !favorites.isEmpty()) {
+//                    showMoviesView();
+//                    moviesAdapter.setMovieListData(favorites);
+//                } else {
+//                    showNoFavoritesMessage();
+//                }
+//            }
+//        });
+    }
+
     private void showMoviesView() {
         errorMessageView.setVisibility(View.INVISIBLE);
         moviesRecyclerView.setVisibility(View.VISIBLE);
@@ -190,5 +223,10 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapterOnCl
     private void showErrorMessage() {
         moviesRecyclerView.setVisibility(View.INVISIBLE);
         errorMessageView.setVisibility(View.VISIBLE);
+    }
+
+    private void showNoFavoritesMessage() {
+        moviesRecyclerView.setVisibility(View.INVISIBLE);
+        // TODO design some message. For now, leave blank
     }
 }

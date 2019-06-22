@@ -1,4 +1,4 @@
-package com.android.seanluckett.popularmovies;
+package com.android.seanluckett.popularmovies.recyclerViewAdapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.seanluckett.popularmovies.viewHolders.MovieTrailerViewHolder;
+import com.android.seanluckett.popularmovies.clickHandlers.MovieTrailersOnClickHandler;
+import com.android.seanluckett.popularmovies.R;
 import com.android.seanluckett.popularmovies.models.TrailerData;
 
 import java.util.ArrayList;
@@ -17,7 +20,7 @@ public class MovieTrailersAdapter extends RecyclerView.Adapter<MovieTrailerViewH
     private ArrayList<TrailerData> trailerListData;
     private final MovieTrailersOnClickHandler clickHandler;
 
-    MovieTrailersAdapter(MovieTrailersOnClickHandler handler) { clickHandler = handler; }
+    public MovieTrailersAdapter(MovieTrailersOnClickHandler handler) { clickHandler = handler; }
 
     @NonNull
     @Override

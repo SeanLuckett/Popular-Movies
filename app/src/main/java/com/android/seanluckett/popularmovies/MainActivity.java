@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -20,14 +19,14 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.android.seanluckett.popularmovies.models.Favorite;
+import com.android.seanluckett.popularmovies.clickHandlers.MoviesAdapterOnClickHandler;
+import com.android.seanluckett.popularmovies.recyclerViewAdapters.MoviesAdapter;
 import com.android.seanluckett.popularmovies.models.FilmData;
 import com.android.seanluckett.popularmovies.viewModels.FavoritesListViewModel;
 import com.android.seanluckett.popularmovies.viewModels.PopularMoviesViewModel;
 import com.android.seanluckett.popularmovies.viewModels.TopMoviesViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import icepick.Icepick;
 import icepick.State;

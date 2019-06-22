@@ -1,4 +1,4 @@
-package com.android.seanluckett.popularmovies;
+package com.android.seanluckett.popularmovies.viewHolders;
 
 import android.view.View;
 import android.widget.TextView;
@@ -6,17 +6,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.seanluckett.popularmovies.clickHandlers.MovieTrailersOnClickHandler;
+import com.android.seanluckett.popularmovies.R;
 import com.android.seanluckett.popularmovies.models.TrailerData;
 
 
 public class MovieTrailerViewHolder extends RecyclerView.ViewHolder implements
     View.OnClickListener {
 
-    final TextView trailerName, trailerType, trailerSize;
+    public final TextView trailerName;
+    public final TextView trailerType;
+    public final TextView trailerSize;
     private final MovieTrailersOnClickHandler clickHandler;
     private TrailerData selectedTrailer;
 
-    MovieTrailerViewHolder(@NonNull View view, MovieTrailersOnClickHandler handler) {
+    public MovieTrailerViewHolder(@NonNull View view, MovieTrailersOnClickHandler handler) {
         super(view);
         clickHandler = handler;
 

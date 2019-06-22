@@ -1,4 +1,4 @@
-package com.android.seanluckett.popularmovies;
+package com.android.seanluckett.popularmovies.recyclerViewAdapters;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -7,17 +7,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.seanluckett.popularmovies.clickHandlers.MoviesAdapterOnClickHandler;
+import com.android.seanluckett.popularmovies.viewHolders.MoviesAdapterViewHolder;
+import com.android.seanluckett.popularmovies.R;
 import com.android.seanluckett.popularmovies.models.FilmData;
 import com.android.seanluckett.popularmovies.wrappers.MovieApiWrapper;
 
 import java.util.ArrayList;
 
-class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapterViewHolder> {
+public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapterViewHolder> {
 
     private ArrayList<FilmData> movieListData;
     private final MoviesAdapterOnClickHandler clickHandler;
 
-    MoviesAdapter(MoviesAdapterOnClickHandler handler) { clickHandler = handler; }
+    public MoviesAdapter(MoviesAdapterOnClickHandler handler) { clickHandler = handler; }
 
     @NonNull
     @Override
@@ -44,7 +47,7 @@ class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapterViewHolder> {
         return (movieListData != null) ? movieListData.size() : 0;
     }
 
-    void setMovieListData(ArrayList<FilmData> movies) {
+    public void setMovieListData(ArrayList<FilmData> movies) {
         movieListData = movies;
         notifyDataSetChanged();
     }

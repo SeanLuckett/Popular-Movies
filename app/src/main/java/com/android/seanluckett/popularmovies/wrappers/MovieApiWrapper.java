@@ -1,5 +1,6 @@
 package com.android.seanluckett.popularmovies.wrappers;
 
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.android.seanluckett.popularmovies.R;
@@ -24,9 +25,11 @@ public class MovieApiWrapper {
             .into(view);
     }
 
-    public static void loadPosterIntoView(ImageView view, Favorite movie) {
+    public static void loadPosterIntoView(ImageView view, Favorite favorite) {
+        Log.i(Favorite.TAG, "Loading favorite image...");
+        Log.i(Favorite.TAG, "Image path is " + favorite.getPosterImagePath());
         Picasso.get()
-            .load(movie.getPosterImagePath())
+            .load(favorite.getPosterImagePath())
             .placeholder(R.mipmap.poster_placeholder)
             .error(R.drawable.ic_error_outline_accent_24dp)
             .into(view);

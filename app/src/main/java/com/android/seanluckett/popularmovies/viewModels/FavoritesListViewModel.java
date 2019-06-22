@@ -1,6 +1,7 @@
 package com.android.seanluckett.popularmovies.viewModels;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -19,5 +20,8 @@ public class FavoritesListViewModel extends AndroidViewModel {
         favoriteList = new FavoriteMoviesLiveData(application);
     }
 
-    public LiveData<List<Favorite>> getFavorites() { return favoriteList; }
+    public LiveData<List<Favorite>> getFavorites() {
+        Log.i(Favorite.TAG, "Loading favorites...");
+        return favoriteList;
+    }
 }

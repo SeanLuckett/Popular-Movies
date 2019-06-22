@@ -23,7 +23,7 @@ public class FavoritesAdapterViewHolder extends RecyclerView.ViewHolder implemen
 
     @Override
     public void onClick(View v) {
-        clickHandler.onMovieClicked(selectedMovie);
+        clickHandler.onFavoriteClicked(selectedMovie);
     }
 
     public void bindData(Favorite movie) {

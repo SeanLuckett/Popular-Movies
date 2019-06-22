@@ -74,7 +74,7 @@ public class FavoriteLiveData extends LiveData {
             movie.getPosterImagePath(),
             movie.getPlot(),
             movie.getUserRating(),
-            movie.getReleaseYear()
+            movie.getReleaseDate()
         );
     }
 }

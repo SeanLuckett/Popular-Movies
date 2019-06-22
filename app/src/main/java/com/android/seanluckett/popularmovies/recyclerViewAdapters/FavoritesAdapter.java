@@ -38,12 +38,12 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapterViewH
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FavoritesAdapterViewHolder moviesAdapterViewHolder, int i) {
+    public void onBindViewHolder(@NonNull FavoritesAdapterViewHolder favoritesAdapterViewHolder, int i) {
         Favorite favorite = favoriteListData.get(i);
-        moviesAdapterViewHolder.bindData(favorite);
+        favoritesAdapterViewHolder.bindData(favorite);
 
         MovieApiWrapper.loadPosterIntoView(
-            moviesAdapterViewHolder.moviePosterImageView,
+            favoritesAdapterViewHolder.moviePosterImageView,
             favorite);
     }
 

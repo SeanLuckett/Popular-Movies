@@ -3,6 +3,7 @@ package com.android.seanluckett.popularmovies.liveData;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -31,6 +32,7 @@ public class FavoriteMoviesLiveData extends LiveData {
 
             @Override
             protected void onPostExecute(List<Favorite> favorites) {
+                Log.i(Favorite.TAG, "Favorite list size is " + favorites.size());
                 setValue(favorites);
             }
         }.execute();

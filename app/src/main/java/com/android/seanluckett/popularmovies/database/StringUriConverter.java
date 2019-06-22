@@ -4,12 +4,11 @@ import android.net.Uri;
 
 import androidx.room.TypeConverter;
 
-import com.android.seanluckett.popularmovies.utils.BuildFullPosterUri;
 
 public class StringUriConverter {
     @TypeConverter
     public static Uri toUri(String path) {
-        return path == null ? null : BuildFullPosterUri.execute(path);
+        return path == null ? null : Uri.parse(path);
     }
 
     @TypeConverter

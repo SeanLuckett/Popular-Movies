@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapterOnCl
 //                loadingIndicator.setVisibility(View.INVISIBLE);
 //                if (favorites != null && !favorites.isEmpty()) {
 //                    showMoviesView();
-//                    moviesAdapter.setMovieListData(favorites);
+//                    moviesAdapter.setFavoriteListData(favorites);
 //                } else {
 //                    showNoFavoritesMessage();
 //                }

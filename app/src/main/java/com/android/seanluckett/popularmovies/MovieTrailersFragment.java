@@ -18,8 +18,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.seanluckett.popularmovies.clickHandlers.MovieTrailersOnClickHandler;
 import com.android.seanluckett.popularmovies.models.FilmData;
 import com.android.seanluckett.popularmovies.models.TrailerData;
+import com.android.seanluckett.popularmovies.recyclerViewAdapters.MovieTrailersAdapter;
 import com.android.seanluckett.popularmovies.viewModels.MovieTrailersViewModel;
 
 import java.util.ArrayList;

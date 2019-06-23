@@ -9,6 +9,7 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "favorites", indices = {@Index("movieDbId")})
 public class Favorite {
+    public static final String TAG = Favorite.class.getSimpleName();
 
     @PrimaryKey(autoGenerate = true)
     private int id;
@@ -19,34 +20,34 @@ public class Favorite {
     private Uri posterImagePath;
     private String plotSummary;
     private double rating;
-    private String releaseYear;
+    private String releaseDate;
     private boolean isFavorite;
 
     @Ignore
     public Favorite(
         int movieDbId, String title,
         Uri posterImagePath, String plotSummary,
-        double rating, String releaseYear
+        double rating, String releaseDate
     ) {
         initializeFavorite(movieDbId, title, posterImagePath, plotSummary,
-            rating, releaseYear, false);
+            rating, releaseDate, false);
     }
 
     public Favorite(
         int id, int movieDbId,
         String title, Uri posterImagePath,
         String plotSummary, double rating,
-        String releaseYear
+        String releaseDate
     ) {
         this.id = id;
         initializeFavorite(movieDbId, title, posterImagePath, plotSummary,
-            rating, releaseYear, false);
+            rating, releaseDate, false);
     }
 
     public void initializeFavorite(
         int movieDbId, String title,
         Uri posterImagePath, String plotSummary,
-        double rating, String releaseYear,
+        double rating, String releaseDate,
         boolean isFavorite
     ) {
         this.movieDbId = movieDbId;
@@ -54,7 +55,7 @@ public class Favorite {
         this.posterImagePath = posterImagePath;
         this.plotSummary = plotSummary;
         this.rating = rating;
-        this.releaseYear = releaseYear;
+        this.releaseDate = releaseDate;
         this.isFavorite = isFavorite;
     }
 
@@ -86,8 +87,8 @@ public class Favorite {
         return rating;
     }
 
-    public String getReleaseYear() {
-        return releaseYear;
+    public String getReleaseDate() {
+        return releaseDate;
     }
 
     public boolean isFavorite() {

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.seanluckett.popularmovies.recyclerViewAdapters.MovieReviewsAdapter;
 import com.android.seanluckett.popularmovies.models.FilmData;
 import com.android.seanluckett.popularmovies.models.ReviewData;
 import com.android.seanluckett.popularmovies.viewModels.MovieReviewsViewModel;

@@ -1,4 +1,4 @@
-package com.android.seanluckett.popularmovies;
+package com.android.seanluckett.popularmovies.recyclerViewAdapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.seanluckett.popularmovies.viewHolders.MovieReviewViewHolder;
+import com.android.seanluckett.popularmovies.R;
 import com.android.seanluckett.popularmovies.models.ReviewData;
 
 import java.util.ArrayList;

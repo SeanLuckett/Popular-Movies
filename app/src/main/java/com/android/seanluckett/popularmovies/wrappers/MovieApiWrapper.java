@@ -26,8 +26,6 @@ public class MovieApiWrapper {
     }
 
     public static void loadPosterIntoView(ImageView view, Favorite favorite) {
-        Log.i(Favorite.TAG, "Loading favorite image...");
-        Log.i(Favorite.TAG, "Image path is " + favorite.getPosterImagePath());
         Picasso.get()
             .load(favorite.getPosterImagePath())
             .placeholder(R.mipmap.poster_placeholder)

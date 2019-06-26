@@ -1,5 +1,6 @@
 package com.android.seanluckett.popularmovies.database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -15,7 +16,7 @@ import java.util.List;
 public interface FavoriteDao {
 
     @Query("select * from favorites where isFavorite = 1")
-    List<Favorite> loadFavorites();
+    LiveData<List<Favorite>> loadFavorites();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Favorite favorite);

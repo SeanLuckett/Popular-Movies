@@ -1,10 +1,8 @@
 package com.android.seanluckett.popularmovies.utils;
 
 import android.net.Uri;
-import android.util.Log;
 
 import com.android.seanluckett.popularmovies.BuildConfig;
-import com.android.seanluckett.popularmovies.models.FilmData;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -30,7 +28,6 @@ public class MovieDbService implements ApiService {
     @Override
     public String getMostPopular() {
         try {
-            Log.i(FilmData.TAG, "Hitting most popular movies api");
             return fetchMoviesJson(POPULAR_MOVIES_PATH);
 
         } catch (IOException e) {
@@ -43,7 +40,6 @@ public class MovieDbService implements ApiService {
     @Override
     public String getTopRated() {
         try {
-            Log.i(FilmData.TAG, "Hitting top rated movies api");
             return fetchMoviesJson(TOP_RATED_MOVIES_PATH);
 
         } catch (IOException e) {
@@ -56,7 +52,6 @@ public class MovieDbService implements ApiService {
     @Override
     public String getTrailers(int id) {
         try {
-            Log.i(FilmData.TAG, "Hitting trailers API for: " + id);
             return fetchTrailersJson("movie/" + id + "/videos");
         } catch (IOException e) {
             e.printStackTrace();
@@ -68,7 +63,6 @@ public class MovieDbService implements ApiService {
     @Override
     public String getReviews(int id) {
         try {
-            Log.i(FilmData.TAG, "Hitting reviews API for: " + id);
             return fetchReviewsJson("movie/" + id + "/reviews");
         } catch (IOException e) {
             e.printStackTrace();

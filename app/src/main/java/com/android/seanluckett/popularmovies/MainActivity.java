@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,12 +21,13 @@ import android.widget.TextView;
 
 import com.android.seanluckett.popularmovies.clickHandlers.FavoritesAdapterOnClickHandler;
 import com.android.seanluckett.popularmovies.clickHandlers.MoviesAdapterOnClickHandler;
+import com.android.seanluckett.popularmovies.database.FavoriteDao;
+import com.android.seanluckett.popularmovies.database.FavoriteDatabase;
 import com.android.seanluckett.popularmovies.models.Favorite;
 import com.android.seanluckett.popularmovies.recyclerViewAdapters.FavoritesAdapter;
 import com.android.seanluckett.popularmovies.recyclerViewAdapters.MoviesAdapter;
 import com.android.seanluckett.popularmovies.models.FilmData;
 import com.android.seanluckett.popularmovies.utils.ConvertToFilmData;
-import com.android.seanluckett.popularmovies.viewModels.FavoritesListViewModel;
 import com.android.seanluckett.popularmovies.viewModels.PopularMoviesViewModel;
 import com.android.seanluckett.popularmovies.viewModels.TopMoviesViewModel;
 
@@ -55,6 +55,8 @@ public class MainActivity extends AppCompatActivity
     private ProgressBar loadingIndicator;
     private TextView errorMessageView;
 
+    FavoriteDao favoriteDao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +81,9 @@ public class MainActivity extends AppCompatActivity
 
         loadingIndicator = findViewById(R.id.loading_indicator);
         showProgressLoader();
+
+        favoriteDao = FavoriteDatabase.getInstance(this).getFavoriteDao();
+        observeFavorites();
 
         Icepick.restoreInstanceState(this, savedInstanceState);
         loadMovieData();
@@ -225,11 +230,11 @@ public class MainActivity extends AppCompatActivity
 
     private void sortMoviesFavorites() {
         movieListType = MOVIE_LIST_STATE_FAVORITES;
+        observeFavorites();
+    }
 
-        FavoritesListViewModel favModel =
-            ViewModelProviders.of(this).get(FavoritesListViewModel.class);
-
-        favModel.getFavorites().observe(this, new Observer<List<Favorite>>() {
+    private void observeFavorites() {
+        favoriteDao.loadFavorites().observe(this, new Observer<List<Favorite>>() {
 
             @Override
             public void onChanged(List<Favorite> favorites) {

@@ -12,8 +12,6 @@ import com.android.seanluckett.popularmovies.models.FilmData;
 import com.google.android.material.tabs.TabLayout;
 
 public class MovieDetailActivity extends AppCompatActivity {
-    private ViewPager viewPager;
-    private MovieDetailPagerAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +31,9 @@ public class MovieDetailActivity extends AppCompatActivity {
                 TextView movieTitle = findViewById(R.id.movie_title_text);
                 movieTitle.setText(selectedMovie.getTitle());
 
-                viewPager = findViewById(R.id.movie_detail_pager);
+                ViewPager viewPager = findViewById(R.id.movie_detail_pager);
 
-                pagerAdapter = new MovieDetailPagerAdapter(
+                MovieDetailPagerAdapter pagerAdapter = new MovieDetailPagerAdapter(
                     getSupportFragmentManager(), selectedMovie, getApplication()
                 );
 

@@ -3,6 +3,7 @@ package com.android.seanluckett.popularmovies;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -33,7 +34,7 @@ public class MovieDetailFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         selectedMovie = getArguments().getParcelable(MovieDetailPagerAdapter.MOVIE_KEY);

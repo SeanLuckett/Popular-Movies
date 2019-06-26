@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -27,7 +28,6 @@ import com.android.seanluckett.popularmovies.viewModels.MovieTrailersViewModel;
 import java.util.ArrayList;
 
 public class MovieTrailersFragment extends Fragment implements MovieTrailersOnClickHandler {
-    private RecyclerView movieTrailersRecyclerView;
     private MovieTrailersAdapter trailersAdapter;
     private FilmData movie;
 
@@ -39,17 +39,18 @@ public class MovieTrailersFragment extends Fragment implements MovieTrailersOnCl
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        assert getArguments() != null;
         movie = getArguments().getParcelable(MovieDetailPagerAdapter.MOVIE_KEY);
         trailersAdapter = new MovieTrailersAdapter(this);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_movie_trailers, container, false);
 
-        movieTrailersRecyclerView = view.findViewById(R.id.rv_trailers);
+        RecyclerView movieTrailersRecyclerView = view.findViewById(R.id.rv_trailers);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(
             container.getContext(), RecyclerView.VERTICAL, false
         );

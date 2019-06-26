@@ -17,4 +17,5 @@
     <string name="movie_review_tab_label">Reviews</string>
     <string name="movie_tab_label_overflow">Error in tab layout</string>
     <string name="no_reviews_message">There are no reviews for this movie.</string>
+    <string name="movie_trailer_icon">Movie trailer icon</string>
 </resources>

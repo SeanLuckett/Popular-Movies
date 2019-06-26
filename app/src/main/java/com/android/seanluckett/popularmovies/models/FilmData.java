@@ -7,6 +7,7 @@ import android.os.Parcelable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 // TODO use parceler library to handle boilerplate some day
 // https://github.com/johncarl81/parceler
@@ -97,7 +98,7 @@ public class FilmData implements Parcelable {
 
 
     private String parseReleaseYear() {
-        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
         Date date = null;
 
         try {
@@ -106,7 +107,7 @@ public class FilmData implements Parcelable {
             e.printStackTrace();
         }
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy", Locale.US);
         return formatter.format(date);
     }
 

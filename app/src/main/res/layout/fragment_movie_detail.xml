@@ -8,7 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp">
 
         <ImageView
@@ -34,7 +34,6 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textSize="@dimen/default_text"
             app:layout_constraintStart_toEndOf="@+id/detail_poster_image"
-            app:layout_constraintTop_toBottomOf="@+id/movie_title_text"
             tools:text="2019" />
 
         <LinearLayout

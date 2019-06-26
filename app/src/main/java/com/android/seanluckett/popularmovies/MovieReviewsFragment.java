@@ -2,6 +2,7 @@ package com.android.seanluckett.popularmovies;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -38,11 +39,12 @@ public class MovieReviewsFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         reviewsAdapter = new MovieReviewsAdapter();
+        assert getArguments() != null;
         movie = getArguments().getParcelable(MovieDetailPagerAdapter.MOVIE_KEY);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_movie_reviews, container, false);

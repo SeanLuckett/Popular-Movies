@@ -10,14 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.seanluckett.popularmovies.R;
 import com.android.seanluckett.popularmovies.clickHandlers.FavoritesAdapterOnClickHandler;
-import com.android.seanluckett.popularmovies.clickHandlers.MoviesAdapterOnClickHandler;
 import com.android.seanluckett.popularmovies.models.Favorite;
-import com.android.seanluckett.popularmovies.models.FilmData;
 import com.android.seanluckett.popularmovies.viewHolders.FavoritesAdapterViewHolder;
-import com.android.seanluckett.popularmovies.viewHolders.MoviesAdapterViewHolder;
 import com.android.seanluckett.popularmovies.wrappers.MovieApiWrapper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapterViewHolder> {

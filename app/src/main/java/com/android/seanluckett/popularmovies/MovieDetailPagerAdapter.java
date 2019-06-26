@@ -9,7 +9,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.android.seanluckett.popularmovies.models.FilmData;
-import com.android.seanluckett.popularmovies.utils.ApiService;
 import com.android.seanluckett.popularmovies.utils.Configuration;
 
 public class  MovieDetailPagerAdapter extends FragmentPagerAdapter {
@@ -17,7 +16,6 @@ public class  MovieDetailPagerAdapter extends FragmentPagerAdapter {
 
     private final int TOTAL_PAGES = 3;
     private FilmData movie;
-    private ApiService apiService;
     private Application app;
 
     public MovieDetailPagerAdapter(FragmentManager fm) {
@@ -28,7 +26,6 @@ public class  MovieDetailPagerAdapter extends FragmentPagerAdapter {
         FragmentManager fm, FilmData selectedMovie, Application application
     ) {
         super(fm);
-        apiService = Configuration.getApiServiceObject(application);
         movie = selectedMovie;
         app = application;
     }

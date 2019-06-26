@@ -1,6 +1,5 @@
 package com.android.seanluckett.popularmovies.wrappers;
 
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.android.seanluckett.popularmovies.R;

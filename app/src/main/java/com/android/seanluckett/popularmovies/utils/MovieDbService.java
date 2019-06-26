@@ -22,13 +22,17 @@ public class MovieDbService implements ApiService {
 
     private final String BASE_URL = "https://api.themoviedb.org";
     private final String API_VERSION = "3";
-    private final String POPULAR_MOVIES_PATH = "movie/popular";
-    private final String TOP_RATED_MOVIES_PATH = "movie/top_rated";
+
+    private final String MOVIE_BASE_PATH = "movie/";
+    private final String POPULAR_MOVIES_PATH = MOVIE_BASE_PATH + "popular";
+    private final String TOP_RATED_MOVIES_PATH = MOVIE_BASE_PATH + "top_rated";
+    private final String VIDEOS_PATH = "/videos";
+    private final String REVIEWS_PATH = "/reviews";
 
     @Override
     public String getMostPopular() {
         try {
-            return fetchMoviesJson(POPULAR_MOVIES_PATH);
+            return fetchJson(POPULAR_MOVIES_PATH);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -40,7 +44,7 @@ public class MovieDbService implements ApiService {
     @Override
     public String getTopRated() {
         try {
-            return fetchMoviesJson(TOP_RATED_MOVIES_PATH);
+            return fetchJson(TOP_RATED_MOVIES_PATH);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -52,7 +56,7 @@ public class MovieDbService implements ApiService {
     @Override
     public String getTrailers(int id) {
         try {
-            return fetchTrailersJson("movie/" + id + "/videos");
+            return fetchJson(MOVIE_BASE_PATH + id + VIDEOS_PATH);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -63,7 +67,7 @@ public class MovieDbService implements ApiService {
     @Override
     public String getReviews(int id) {
         try {
-            return fetchReviewsJson("movie/" + id + "/reviews");
+            return fetchJson(MOVIE_BASE_PATH + id + REVIEWS_PATH);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -71,29 +75,7 @@ public class MovieDbService implements ApiService {
         return null;
     }
 
-    private String fetchTrailersJson(String path) throws IOException {
-        URL moviesApiUrl = buildUrl(path);
-        HttpURLConnection connection = (HttpURLConnection) moviesApiUrl.openConnection();
-
-        InputStream in = new BufferedInputStream(connection.getInputStream());
-
-        String json = buildJsonResponse(in);
-        connection.disconnect();
-        return json;
-    }
-
-    private String fetchReviewsJson(String path) throws IOException {
-        URL moviesApiUrl = buildUrl(path);
-        HttpURLConnection connection = (HttpURLConnection) moviesApiUrl.openConnection();
-
-        InputStream in = new BufferedInputStream(connection.getInputStream());
-
-        String json = buildJsonResponse(in);
-        connection.disconnect();
-        return json;
-    }
-
-    private String fetchMoviesJson(String path) throws IOException {
+    private String fetchJson(String path) throws IOException {
         URL moviesApiUrl = buildUrl(path);
         HttpURLConnection connection = (HttpURLConnection) moviesApiUrl.openConnection();
 

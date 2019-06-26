@@ -60,6 +60,7 @@ public class FavoriteLiveData extends LiveData {
 
             @Override
             protected void onPostExecute(Favorite favorite) {
+                //noinspection unchecked
                 setValue((favorite != null) ? favorite : nonPersistedFav);
             }
 

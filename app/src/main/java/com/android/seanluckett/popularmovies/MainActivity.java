@@ -39,6 +39,7 @@ import icepick.State;
 
 public class MainActivity extends AppCompatActivity
     implements MoviesAdapterOnClickHandler, FavoritesAdapterOnClickHandler {
+
     @State
     String movieListType;
     private final String MOVIE_LIST_STATE_POPULAR = "popular";
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity
     private ProgressBar loadingIndicator;
     private TextView errorMessageView;
 
-    FavoriteDao favoriteDao;
+    private FavoriteDao favoriteDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,7 +173,6 @@ public class MainActivity extends AppCompatActivity
                 case MOVIE_LIST_STATE_FAVORITES:
                     registerFavoritesAdapter();
                     sortMoviesFavorites();
-                    return;
             }
         } else {
             registerMoviesAdapter();

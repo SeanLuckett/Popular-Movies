@@ -44,7 +44,7 @@ public class Favorite {
             rating, releaseDate, false);
     }
 
-    public void initializeFavorite(
+    private void initializeFavorite(
         int movieDbId, String title,
         Uri posterImagePath, String plotSummary,
         double rating, String releaseDate,
@@ -100,6 +100,6 @@ public class Favorite {
     }
 
     public void toggleFavorite() {
-        this.isFavorite = isFavorite() ? false : true;
+        this.isFavorite = !isFavorite();
     }
 }

@@ -2,7 +2,7 @@ package com.android.seanluckett.popularmovies.utils;
 
 import android.net.Uri;
 
-public class BuildFullPosterUri {
+class BuildFullPosterUri {
     private final static String TAG = BuildFullPosterUri.class.getSimpleName();
 
     public static Uri execute(String filePath) {

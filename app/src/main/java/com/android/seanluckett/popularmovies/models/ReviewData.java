@@ -1,7 +1,7 @@
 package com.android.seanluckett.popularmovies.models;
 
 public class ReviewData {
-    private String author, text;
+    private final String author, text;
 
     public ReviewData(String author, String text) {
         this.author = author;

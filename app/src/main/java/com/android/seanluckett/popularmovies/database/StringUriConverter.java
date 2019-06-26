@@ -5,7 +5,7 @@ import android.net.Uri;
 import androidx.room.TypeConverter;
 
 
-public class StringUriConverter {
+class StringUriConverter {
     @TypeConverter
     public static Uri toUri(String path) {
         return path == null ? null : Uri.parse(path);

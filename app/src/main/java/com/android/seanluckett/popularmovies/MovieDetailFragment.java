@@ -48,7 +48,7 @@ public class MovieDetailFragment extends Fragment {
         rating.setText(selectedMovie.getUserRating().toString());
 
         TextView releaseDate = view.findViewById(R.id.detail_release_date);
-        releaseDate.setText(selectedMovie.getReleaseYear());
+        releaseDate.setText(selectedMovie.getReleaseDate());
 
         TextView plot = view.findViewById(R.id.plot_summary);
         plot.setText(selectedMovie.getPlot());

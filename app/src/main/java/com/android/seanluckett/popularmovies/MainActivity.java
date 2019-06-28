@@ -84,7 +84,6 @@ public class MainActivity extends AppCompatActivity
         showProgressLoader();
 
         favoriteDao = FavoriteDatabase.getInstance(this).getFavoriteDao();
-        observeFavorites();
 
         Icepick.restoreInstanceState(this, savedInstanceState);
         loadMovieData();
